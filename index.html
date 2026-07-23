@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 Toán 2 K36 - Trang Chủ</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Cấu trúc Sticky Footer cho toàn trang */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex: 1; /* Giúp phần nội dung co giãn lấp đầy khoảng trống, đẩy footer xuống đáy */
+        }
+
+        /* Tinh chỉnh riêng cho nút Đăng nhập / Đăng xuất trên thanh header */
+        .auth-nav-btn {
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 6px 14px;
+            border-radius: 99px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .auth-nav-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-1px);
+        }
+        .auth-nav-btn.logout-state {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+        .auth-nav-btn.logout-state:hover {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        /* CSS chung cho các Hộp thoại Modal tùy chỉnh */
+        .custom-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .custom-modal-box {
+            background: var(--card-bg, #fff);
+            border: 1px solid var(--border, #ddd);
+            padding: 24px;
+            border-radius: 16px;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            animation: modalScaleIn 0.2s ease;
+        }
+        @keyframes modalScaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Lightbox phóng to ảnh */
+        #lightbox-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            cursor: zoom-out;
+        }
+        #lightbox-modal img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Header Logo (Logo lớp hình tròn) */
+        .header-logo-img {
+            height: 38px;
+            width: 38px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: rgba(128, 128, 128, 0.05);
+            padding: 2px;
+            border: 1px solid var(--border);
+            cursor: zoom-in;
+            transition: transform 0.2s ease;
+            vertical-align: middle;
+        }
+        .header-logo-img:hover {
+            transform: scale(1.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Footer Style: Chữ căn trái, Logo trường hình chữ nhật, Logo lớp hình tròn */
+        .site-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 30px;
+            border-top: 1px solid var(--border);
+            background: var(--card-bg);
+            flex-shrink: 0;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .footer-left-content {
+            text-align: left;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .footer-left-content p {
+            margin: 4px 0;
+        }
+        .footer-right-logos {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        /* Logo trường Chuyên Bến Tre (hình chữ nhật) */
+        .footer-right-logos img.school-logo {
+            height: 55px;
+            width: auto;
+            object-fit: contain;
+            background: rgba(128, 128, 128, 0.05);
+            padding: 3px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            cursor: zoom-in;
+            transition: transform 0.2s ease;
+        }
+        /* Logo lớp 10 Toán 2 K36 (hình tròn) */
+        .footer-right-logos img.class-logo {
+            height: 55px;
+            width: 55px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: rgba(128, 128, 128, 0.05);
+            padding: 3px;
+            border: 1px solid var(--border);
+            cursor: zoom-in;
+            transition: transform 0.2s ease;
+        }
+        .footer-right-logos img:hover {
+            transform: scale(1.08);
+        }
+    </style>
+</head>
+<body>
+    <header class="header-nav">
+        <div class="logo">
+            <img src="10_t2_logo.jpeg" alt="Logo 10 Toán 2 K36" title="Bấm để phóng to logo Lớp" class="header-logo-img" onclick="openLightbox('10_t2_logo.jpeg')">
+            <h2>10 Toán 2 K36</h2>
+        </div>
+        <ul class="menu">
+            <li><a href="index.html" class="active">Trang Chủ</a></li>
+            <li><a href="members.html">Thành Viên Lớp</a></li>
+            <li><a href="achievements.html">Bảng Vàng Thành Tích</a></li>
+            <li><a href="gallery.html">Tư liệu & Kỷ Niệm</a></li>
+            <li><button id="theme-toggle" class="theme-btn">🌙 Giao diện</button></li>
+            <li><button id="auth-nav-btn" class="auth-nav-btn" onclick="handleAuthNavAction()">🔑 Đăng nhập</button></li>
+        </ul>
+    </header>
+
+    <main class="main-content">
+        <section class="card">
+            <h2>🌟 Tổng Quan Về Tập Thể 10 Toán 2 K36</h2>
+            
+            <p>🚀 <strong>Khởi Đầu Của Những Ước Mơ Lớn:</strong> Chào mừng toàn thể các bạn đến với ngôi nhà chung vô cùng ấm áp và tự hào của tập thể 10 Toán 2 khóa K36 dưới mái trường THPT Chuyên Bến Tre. Nơi đây không đơn thuần là một lớp chuyên quy tụ những bộ óc ưu tú, mà còn là một không gian thanh xuân rực rỡ, nuôi dưỡng biết bao hoài bão và khát vọng vươn lên của tuổi trẻ. Ngay từ những ngày đầu gia nhập, mỗi thành viên đã mang sẵn trong tim ngọn lửa nhiệt huyết và tình yêu mãnh liệt với các con số cùng những bài toán mang tầm thách thức tư duy.</p>
+            
+            <p>💡 <strong>Thử Thách Và Bản Lĩnh Tư Duy:</strong> Hành trình chinh phục tri thức đỉnh cao chưa bao giờ là con đường trải hoa hồng; trái lại, nó đòi hỏi sự kiên trì tuyệt đối cùng một cái đầu lạnh trước các đề thi hóc búa. Đã bao đêm chúng ta cùng nhau trằn trọc qua màn hình hay trang giấy trắng để tìm ra lời giải trọn vẹn, hay tranh luận sôi nổi để tháo gỡ từng nút thắt hình học phức tạp. Chính những thử thách cam go đó đã tôi luyện cho tập thể một bản lĩnh vững vàng, sự nhạy bén logic và ý chí không bao giờ khuất phục.</p>
+            
+            <p>🤝 <strong>Tình Bạn Khăng Khít Và Sức Mạnh Đoàn Kết:</strong> Bên cạnh những giờ học căng thẳng hay áp lực luyện đề, lớp chúng ta còn là một đại gia đình thực thụ với biết bao kỷ niệm vui buồn đáng nhớ. Đó là những tiếng cười giòn tan trong giờ giải lao, lời động viên kịp thời lúc điểm số chưa như ý, hay sự sẻ chia chí cốt trong mọi hoạt động phong trào. Sợi dây liên kết ấy được bồi đắp từ tình cảm chân thành và sự thấu hiểu, biến một tập thể gồm nhiều cá tính trở thành một khối đoàn kết vững chắc.</p>
+            
+            <p>🎯 <strong>Hướng Tới Tương Lai Rực Rỡ:</strong> Nhìn lại chặng đường đã qua để hướng về phía trước, trang web này được ra đời nhằm lưu giữ trọn vẹn những khoảnh khắc thanh xuân đẹp đẽ nhất. Chúc cho 10 Toán 2 K36 luôn giữ vững ngọn lửa đam mê, sát cánh bên nhau vượt qua mọi chông gai để cùng chạm tay đến những đỉnh cao vinh quang và làm rạng danh truyền thống trường THPT Chuyên Bến Tre!</p>
+        </section>
+    </main>
+
+    <!-- CHÂN TRANG (FOOTER) -->
+    <footer class="site-footer">
+        <div class="footer-left-content">
+            <p><strong>Lớp 10 Toán 2 - K36</strong></p>
+            <p>Trường THPT Chuyên Bến Tre • Nơi lưu trữ kỷ niệm và thành tích học tập.</p>
+            <p style="font-size: 0.8rem; margin-top: 6px; color: var(--text-muted);">© 2026 Designed by K36 Math Students.</p>
+        </div>
+        <div class="footer-right-logos">
+            <img src="logocbt.png" alt="Logo THPT Chuyên Bến Tre" title="Bấm để phóng to logo Trường" class="school-logo" onclick="openLightbox('logocbt.png')">
+            <img src="10_t2_logo.jpeg" alt="Logo 10 Toán 2 K36" title="Bấm để phóng to logo Lớp" class="class-logo" onclick="openLightbox('10_t2_logo.jpeg')">
+        </div>
+    </footer>
+
+    <!-- HỘP THOẠI CHÀO MỪNG -->
+    <div id="welcome-modal" class="custom-modal-overlay" style="display: flex;">
+        <div class="custom-modal-box" style="text-align: center; max-width: 400px; position: relative;">
+            <button onclick="closeWelcomeModal()" style="position: absolute; top: 16px; right: 16px; background: transparent; border: none; font-size: 1.1rem; color: var(--text-muted); cursor: pointer;">✕</button>
+            
+            <div style="font-size: 2.5rem; margin-bottom: 10px;">👋</div>
+            <h3 style="color: var(--text-main); margin: 0 0 10px 0; font-size: 1.2rem;">Chào mừng bạn đến với 10 Toán 2 K36!</h3>
+            
+            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin: 0 0 20px 0;">
+                Cảm ơn bạn đã ghé thăm không gian lưu giữ thanh xuân của chúng mình dưới mái trường THPT Chuyên Bến Tre.
+            </p>
+
+            <div style="background: rgba(128, 128, 128, 0.05); border: 1px solid var(--border); padding: 12px; border-radius: 10px; margin-bottom: 20px;">
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px;">Được thực hiện bởi:</div>
+                <div style="font-weight: 600; color: var(--text-main); font-size: 0.95rem;">Duy - tin K35</div>
+            </div>
+
+            <a href="#" target="_blank" onclick="closeWelcomeModal()" style="display: block; width: 100%; background: var(--accent); color: #fff; border: none; padding: 12px; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 0.95rem; text-decoration: none; box-sizing: border-box;">
+                Vào Fanpage
+            </a>
+        </div>
+    </div>
+
+    <!-- MODAL NHẬP MẬT KHẨU -->
+    <div id="login-modal" class="custom-modal-overlay">
+        <div class="custom-modal-box">
+            <div style="font-size: 2rem; margin-bottom: 8px;">🔐</div>
+            <h3 style="color: var(--text-main); margin: 0 0 6px 0; font-size: 1.15rem;">Khu vực nội bộ lớp</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0 0 16px 0;">Nhập mật khẩu để tiếp tục truy cập</p>
+            <input type="password" id="modal-pass-input" placeholder="Mật khẩu lớp..." onkeydown="if(event.key === 'Enter') submitLogin()" style="width: 100%; background: var(--card-bg); border: 1px solid var(--border); padding: 10px 12px; border-radius: 10px; color: var(--text-main); outline: none; font-size: 0.95rem; box-sizing: border-box; margin-bottom: 12px;">
+            <div id="modal-err" style="color: #ef4444; font-size: 0.8rem; margin-bottom: 12px; display: none;">Sai mật khẩu rồi bạn ơi!</div>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="closeLoginModal()" style="flex: 1; background: transparent; color: var(--text-main); border: 1px solid var(--border); padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer;">Hủy</button>
+                <button onclick="submitLogin()" style="flex: 1; background: var(--accent); color: #fff; border: none; padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer;">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL XÁC NHẬN ĐĂNG XUẤT -->
+    <div id="logout-modal" class="custom-modal-overlay">
+        <div class="custom-modal-box">
+            <div style="font-size: 2rem; margin-bottom: 8px;">⚠️</div>
+            <h3 style="color: var(--text-main); margin: 0 0 8px 0; font-size: 1.15rem;">Xác nhận đăng xuất</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0 0 20px 0;">Bạn có chắc chắn muốn đăng xuất khỏi khu vực nội bộ không?</p>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="closeLogoutModal()" style="flex: 1; background: transparent; color: var(--text-main); border: 1px solid var(--border); padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer;">Hủy</button>
+                <button onclick="confirmLogout()" style="flex: 1; background: #ef4444; color: #fff; border: none; padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer;">Đăng xuất</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX PHÓNG TO ẢNH -->
+    <div id="lightbox-modal" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="Phóng to ảnh">
+    </div>
+
+    <script>
+        const CORRECT_PASS = "10toan2k36";
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('class_unlocked') === 'true') {
+                updateAuthButtonState(true);
+            } else {
+                updateAuthButtonState(false);
+            }
+
+            if (sessionStorage.getItem('welcomed') === 'true') {
+                const welcomeModal = document.getElementById('welcome-modal');
+                if (welcomeModal) welcomeModal.style.display = 'none';
+            }
+        });
+
+        function closeWelcomeModal() {
+            const modal = document.getElementById('welcome-modal');
+            if (modal) {
+                modal.style.display = 'none';
+                sessionStorage.setItem('welcomed', 'true');
+            }
+        }
+
+        function handleAuthNavAction() {
+            if (localStorage.getItem('class_unlocked') === 'true') {
+                document.getElementById('logout-modal').style.display = 'flex';
+            } else {
+                document.getElementById('modal-pass-input').value = '';
+                document.getElementById('modal-err').style.display = 'none';
+                document.getElementById('login-modal').style.display = 'flex';
+                setTimeout(() => document.getElementById('modal-pass-input').focus(), 100);
+            }
+        }
+
+        function closeLoginModal() {
+            document.getElementById('login-modal').style.display = 'none';
+        }
+
+        function submitLogin() {
+            const passVal = document.getElementById('modal-pass-input').value;
+            if (passVal === CORRECT_PASS) {
+                localStorage.setItem('class_unlocked', 'true');
+                closeLoginModal();
+                updateAuthButtonState(true);
+                location.reload();
+            } else {
+                document.getElementById('modal-err').style.display = 'block';
+            }
+        }
+
+        function closeLogoutModal() {
+            document.getElementById('logout-modal').style.display = 'none';
+        }
+
+        function confirmLogout() {
+            localStorage.removeItem('class_unlocked');
+            updateAuthButtonState(false);
+            location.reload();
+        }
+
+        function updateAuthButtonState(isLoggedIn) {
+            const btn = document.getElementById('auth-nav-btn');
+            if (!btn) return;
+            if (isLoggedIn) {
+                btn.textContent = '🚪 Đăng xuất';
+                btn.className = 'auth-nav-btn logout-state';
+            } else {
+                btn.textContent = '🔑 Đăng nhập';
+                btn.className = 'auth-nav-btn';
+            }
+        }
+
+        function openLightbox(url) {
+            document.getElementById('lightbox-img').src = url;
+            document.getElementById('lightbox-modal').style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox-modal').style.display = 'none';
+        }
+
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        if (localStorage.getItem('theme') === 'light') {
+            body.classList.add('light-mode');
+            if (themeToggleBtn) themeToggleBtn.textContent = '☀️ Giao diện';
+        }
+
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                body.classList.toggle('light-mode');
+                
+                if (body.classList.contains('light-mode')) {
+                    themeToggleBtn.textContent = '☀️ Giao diện';
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    themeToggleBtn.textContent = '🌙 Giao diện';
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

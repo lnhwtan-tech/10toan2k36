@@ -1,0 +1,199 @@
+:root {
+    /* Nền tối sâu thẳm, dịu mắt hơn */
+    --bg-main: radial-gradient(circle at 50% -20%, #1e1b4b 0%, #0b0f19 70%, #030712 100%);
+    --card-bg: rgba(17, 24, 39, 0.7);
+    --text-main: #f3f4f6;
+    --text-muted: #9ca3af;
+    --accent: #38bdf8;
+    --border: rgba(255, 255, 255, 0.12);
+    --shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
+    --backdrop: blur(16px);
+}
+
+/* Chế độ Sáng (Light Glass) */
+body.light-mode {
+    --bg-main: radial-gradient(circle at 50% -20%, #e0f2fe 0%, #f1f5f9 70%, #e2e8f0 100%);
+    --card-bg: rgba(255, 255, 255, 0.82);
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --accent: #0284c7;
+    --border: rgba(255, 255, 255, 0.8);
+    --shadow: 0 15px 35px -10px rgba(100, 116, 139, 0.15);
+    --backdrop: blur(16px);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-main);
+    background-attachment: fixed;
+    color: var(--text-main);
+    min-height: 100vh;
+    transition: background 0.4s ease, color 0.3s ease;
+}
+
+/* Thanh Header kính mờ cao cấp */
+.header-nav {
+    background: var(--card-bg);
+    backdrop-filter: var(--backdrop);
+    -webkit-backdrop-filter: var(--backdrop);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.logo h2 {
+    margin: 0;
+    color: var(--accent);
+    font-size: 1.35rem;
+    font-weight: 700;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.menu li a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 0.9rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    /* Hiệu ứng nảy (spring/bounce) mượt mà */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.menu li a:hover, .menu li a.active {
+    color: var(--accent);
+    background: var(--card-bg);
+    border-color: var(--border);
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.menu li a:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+/* Nút chuyển giao diện kính mờ có độ nảy */
+.theme-btn {
+    background: var(--card-bg);
+    backdrop-filter: var(--backdrop);
+    -webkit-backdrop-filter: var(--backdrop);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.theme-btn:hover {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 6px 20px rgba(56, 189, 248, 0.25);
+}
+
+.theme-btn:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+.main-content {
+    max-width: 1000px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
+}
+
+/* Các khung Card nổi khối kính mờ */
+.card {
+    background: var(--card-bg);
+    backdrop-filter: var(--backdrop);
+    -webkit-backdrop-filter: var(--backdrop);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+}
+
+.card h2 {
+    color: var(--accent);
+    margin-top: 0;
+    font-size: 1.4rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.8rem;
+    font-weight: 600;
+}
+
+.math-quote {
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 4px solid var(--accent);
+    padding: 1.2rem;
+    margin-top: 1.2rem;
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border);
+}
+
+body.light-mode .math-quote {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+/* Tùy chỉnh bảng danh sách thành viên */
+.member-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    color: var(--text-main);
+    background: transparent;
+}
+
+.member-table th, .member-table td {
+    border: 1px solid var(--border);
+    padding: 14px 18px;
+    text-align: left;
+    color: var(--text-main);
+}
+
+.member-table th {
+    background: rgba(56, 189, 248, 0.15);
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.member-table tr:nth-child(even) {
+    background: rgba(128, 128, 128, 0.05);
+}
+
+.member-table tr:hover {
+    background: rgba(56, 189, 248, 0.08);
+}
