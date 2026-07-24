@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>10 Toán 2 K36 - Trang Chủ</title>
+    <title>Giới Thiệu - 10 Toán 2 K36</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
         /* Cấu trúc Sticky Footer cho toàn trang */
@@ -15,10 +15,10 @@
         }
 
         .main-content {
-            flex: 1; /* Giúp phần nội dung co giãn lấp đầy khoảng trống, đẩy footer xuống đáy */
+            flex: 1;
         }
 
-        /* Tinh chỉnh riêng cho nút Đăng nhập / Đăng xuất trên thanh header */
+        /* Tinh chỉnh nút Đăng nhập / Đăng xuất trên header */
         .auth-nav-btn {
             background: var(--card-bg);
             color: var(--text-main);
@@ -49,7 +49,50 @@
             color: #fff;
         }
 
-        /* CSS chung cho các Hộp thoại Modal tùy chỉnh */
+        /* Bố cục nội dung phần giới thiệu */
+        .intro-container {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        .intro-logo {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: rgba(128, 128, 128, 0.05);
+            border: 2px solid var(--border);
+            padding: 4px;
+            flex-shrink: 0;
+            cursor: zoom-in;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .intro-logo.school-shape {
+            border-radius: 12px;
+        }
+        .intro-logo:hover {
+            transform: scale(1.05);
+        }
+        .intro-info {
+            flex: 1;
+            min-width: 250px;
+        }
+        .intro-info p {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+        .intro-info a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .intro-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Hộp thoại Modal tùy chỉnh */
         .custom-modal-overlay {
             display: none;
             position: fixed;
@@ -96,7 +139,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* Header Logo (Logo lớp hình tròn) */
+        /* Logo lớp trên header */
         .header-logo-img {
             height: 38px;
             width: 38px;
@@ -112,14 +155,13 @@
         .header-logo-img:hover {
             transform: scale(1.1);
         }
-
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        /* Footer Style: Chữ căn trái, Logo trường hình chữ nhật, Logo lớp hình tròn */
+        /* Footer Style */
         .site-footer {
             display: flex;
             justify-content: space-between;
@@ -144,7 +186,6 @@
             align-items: center;
             gap: 16px;
         }
-        /* Logo trường Chuyên Bến Tre (hình chữ nhật) */
         .footer-right-logos img.school-logo {
             height: 55px;
             width: auto;
@@ -156,7 +197,6 @@
             cursor: zoom-in;
             transition: transform 0.2s ease;
         }
-        /* Logo lớp 10 Toán 2 K36 (hình tròn) */
         .footer-right-logos img.class-logo {
             height: 55px;
             width: 55px;
@@ -174,34 +214,59 @@
     </style>
 </head>
 <body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header Navigation -->
     <header class="header-nav">
         <div class="logo">
             <img src="10_t2_logo.jpeg" alt="Logo 10 Toán 2 K36" title="Bấm để phóng to logo Lớp" class="header-logo-img" onclick="openLightbox('10_t2_logo.jpeg')">
             <h2>10 Toán 2 K36</h2>
         </div>
         <ul class="menu">
-            <li><a href="index.html" class="active">Trang Chủ</a></li>
+            <li><a href="index.html">Trang Chủ</a></li>
             <li><a href="members.html">Thành Viên Lớp</a></li>
             <li><a href="achievements.html">Bảng Vàng Thành Tích</a></li>
             <li><a href="gallery.html">Tư liệu & Kỷ Niệm</a></li>
-            <li><a href="about.html">Giới Thiệu</a></li>
+            <li><a href="about.html" class="active">Giới Thiệu</a></li>
             <li><a href="feedback.html">Góp Ý</a></li>
             <li><button id="theme-toggle" class="theme-btn">🌙 Giao diện</button></li>
             <li><button id="auth-nav-btn" class="auth-nav-btn" onclick="handleAuthNavAction()">🔑 Đăng nhập</button></li>
         </ul>
     </header>
 
+    <!-- Main Content -->
     <main class="main-content">
-        <section class="card">
-            <h2>🌟 Tổng Quan Về Tập Thể 10 Toán 2 K36</h2>
-            
-            <p>🚀 <strong>Khởi Đầu Của Những Ước Mơ Lớn:</strong> Chào mừng toàn thể các bạn đến với ngôi nhà chung vô cùng ấm áp và tự hào của tập thể 10 Toán 2 khóa K36 dưới mái trường THPT Chuyên Bến Tre. Nơi đây không đơn thuần là một lớp chuyên quy tụ những bộ óc ưu tú, mà còn là một không gian thanh xuân rực rỡ, nuôi dưỡng biết bao hoài bão và khát vọng vươn lên của tuổi trẻ. Ngay từ những ngày đầu gia nhập, mỗi thành viên đã mang sẵn trong tim ngọn lửa nhiệt huyết và tình yêu mãnh liệt với các con số cùng những bài toán mang tầm thách thức tư duy.</p>
-            
-            <p>💡 <strong>Thử Thách Và Bản Lĩnh Tư Duy:</strong> Hành trình chinh phục tri thức đỉnh cao chưa bao giờ là con đường trải hoa hồng; trái lại, nó đòi hỏi sự kiên trì tuyệt đối cùng một cái đầu lạnh trước các đề thi hóc búa. Đã bao đêm chúng ta cùng nhau trằn trọc qua màn hình hay trang giấy trắng để tìm ra lời giải trọn vẹn, hay tranh luận sôi nổi để tháo gỡ từng nút thắt hình học phức tạp. Chính những thử thách cam go đó đã tôi luyện cho tập thể một bản lĩnh vững vàng, sự nhạy bén logic và ý chí không bao giờ khuất phục.</p>
-            
-            <p>🤝 <strong>Tình Bạn Khăng Khít Và Sức Mạnh Đoàn Kết:</strong> Bên cạnh những giờ học căng thẳng hay áp lực luyện đề, lớp chúng ta còn là một đại gia đình thực thụ với biết bao kỷ niệm vui buồn đáng nhớ. Đó là những tiếng cười giòn tan trong giờ giải lao, lời động viên kịp thời lúc điểm số chưa như ý, hay sự sẻ chia chí cốt trong mọi hoạt động phong trào. Sợi dây liên kết ấy được bồi đắp từ tình cảm chân thành và sự thấu hiểu, biến một tập thể gồm nhiều cá tính trở thành một khối đoàn kết vững chắc.</p>
-            
-            <p>🎯 <strong>Hướng Tới Tương Lai Rực Rỡ:</strong> Nhìn lại chặng đường đã qua để hướng về phía trước, trang web này được ra đời nhằm lưu giữ trọn vẹn những khoảnh khắc thanh xuân đẹp đẽ nhất. Chúc cho 10 Toán 2 K36 luôn giữ vững ngọn lửa đam mê, sát cánh bên nhau vượt qua mọi chông gai để cùng chạm tay đến những đỉnh cao vinh quang và làm rạng danh truyền thống trường THPT Chuyên Bến Tre!</p>
+        <!-- PHẦN 1: THÔNG TIN LỚP & QUẢN LÝ -->
+        <section class="card animate-on-scroll">
+            <h2>🌟 Về Tập Thể Lớp 10 Toán 2 K36</h2>
+            <div class="intro-container">
+                <img src="10_t2_logo.jpeg" alt="Logo 10 Toán 2 K36" class="intro-logo" onclick="openLightbox('10_t2_logo.jpeg')" title="Bấm để phóng to">
+                <div class="intro-info">
+                    <p><strong>📖 Giới thiệu chung:</strong> Ngôi nhà chung của tập thể lớp 10 Toán 2 K36 dưới mái trường THPT Chuyên Bến Tre. Nơi hội tụ niềm đam mê toán học và những kỷ niệm tuổi trẻ rực rỡ.</p>
+                    <p><strong>👨‍💻 Quản trị viên:</strong> Tập thể lớp 10 Toán 2</p>
+                    <p><strong>📧 Gmail liên hệ:</strong> <a href="mailto:10toan2k36@gmail.com">10toan2k36@gmail.com</a> (Có thể liên hệ ở phần Góp Ý)</p>
+                    <p><strong>🌐 Fanpage lớp:</strong> <a href="https://www.facebook.com/profile.php?id=61592307514906&sk=directory_contact_info" target="_blank">10T2 K36 - Kings of Maths</a></p>
+                    <p><strong>📱 TikTok lớp:</strong> <a href="https://www.tiktok.com/@t2.k36_cbt" target="_blank">@t2.k36_cbt</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHẦN 2: GIỚI THIỆU VỀ TRƯỜNG -->
+        <section class="card animate-on-scroll">
+            <h2>🏫 Về Trường THPT Chuyên Bến Tre</h2>
+            <div class="intro-container">
+                <img src="logocbt.png" alt="Logo THPT Chuyên Bến Tre" class="intro-logo school-shape" onclick="openLightbox('logocbt.png')" title="Bấm để phóng to">
+                <div class="intro-info">
+                    <p><strong>🏛️</strong> Trường Trung Học Phổ Thông Chuyên Bến Tre</p>
+                    <p><strong>📍</strong> Nơi chắp cánh ước mơ cho các thế hệ học sinh Chuyên Bến Tre, là cái nôi đào tạo nhiều nhân tài với bề dày truyền thống học tập xuất sắc, kỷ cương và sáng tạo, viết tiếp trang sử Vàng cho THPT Chuyên Bến Tre.</p>
+                    <p><strong>🔗 Website Trường:</strong> <a href="https://thptchuyenbentre.edu.vn/" target="_blank">thptchuyenbentre.edu.vn</a></p>
+                    <p><strong>🌐 Fanpage Trường:</strong> <a href="https://www.facebook.com/thptchuyenbentre" target="_blank">THPT Chuyên Bến Tre - BenTre High School for Gifted Students</a></p>
+                     <p><strong>📧 Gmail liên hệ:</strong> <a href="mailto:fbchuyenbentre@gmail.com">fbchuyenbentre@gmail.com</a></p>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -217,29 +282,6 @@
             <img src="10_t2_logo.jpeg" alt="Logo 10 Toán 2 K36" title="Bấm để phóng to logo Lớp" class="class-logo" onclick="openLightbox('10_t2_logo.jpeg')">
         </div>
     </footer>
-
-    <!-- HỘP THOẠI CHÀO MỪNG -->
-    <div id="welcome-modal" class="custom-modal-overlay" style="display: flex;">
-        <div class="custom-modal-box" style="text-align: center; max-width: 400px; position: relative;">
-            <button onclick="closeWelcomeModal()" style="position: absolute; top: 16px; right: 16px; background: transparent; border: none; font-size: 1.1rem; color: var(--text-muted); cursor: pointer;">✕</button>
-            
-            <div style="font-size: 2.5rem; margin-bottom: 10px;">👋</div>
-            <h3 style="color: var(--text-main); margin: 0 0 10px 0; font-size: 1.2rem;">Chào mừng bạn đến với 10 Toán 2 K36!</h3>
-            
-            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin: 0 0 20px 0;">
-                Cảm ơn bạn đã ghé thăm không gian lưu giữ thanh xuân của chúng mình dưới mái trường THPT Chuyên Bến Tre.
-            </p>
-
-            <div style="background: rgba(128, 128, 128, 0.05); border: 1px solid var(--border); padding: 12px; border-radius: 10px; margin-bottom: 20px;">
-                <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px;">Được thực hiện bởi:</div>
-                <div style="font-weight: 600; color: var(--text-main); font-size: 0.95rem;">Thành viên lớp 10 Toán 2</div>
-            </div>
-
-            <button onclick="closeWelcomeModal()" style="display: block; width: 100%; background: var(--accent); color: #fff; border: none; padding: 12px; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 0.95rem; box-sizing: border-box;">
-                Vào trang web
-            </button>
-        </div>
-    </div>
 
     <!-- MODAL NHẬP MẬT KHẨU -->
     <div id="login-modal" class="custom-modal-overlay">
@@ -274,6 +316,7 @@
         <img id="lightbox-img" src="" alt="Phóng to ảnh">
     </div>
 
+    <!-- Script xử lý giao diện và đăng nhập -->
     <script>
         const CORRECT_PASS = "10toan2k36";
 
@@ -283,20 +326,7 @@
             } else {
                 updateAuthButtonState(false);
             }
-
-            if (sessionStorage.getItem('welcomed') === 'true') {
-                const welcomeModal = document.getElementById('welcome-modal');
-                if (welcomeModal) welcomeModal.style.display = 'none';
-            }
         });
-
-        function closeWelcomeModal() {
-            const modal = document.getElementById('welcome-modal');
-            if (modal) {
-                modal.style.display = 'none';
-                sessionStorage.setItem('welcomed', 'true');
-            }
-        }
 
         function handleAuthNavAction() {
             if (localStorage.getItem('class_unlocked') === 'true') {
@@ -356,6 +386,7 @@
             document.getElementById('lightbox-modal').style.display = 'none';
         }
 
+        // Chuyển đổi Light/Dark mode
         const themeToggleBtn = document.getElementById('theme-toggle');
         const body = document.body;
 

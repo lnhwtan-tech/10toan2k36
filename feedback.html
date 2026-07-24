@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>10 Toán 2 K36 - Trang Chủ</title>
+    <title>Góp Ý - 10 Toán 2 K36</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
         /* Cấu trúc Sticky Footer cho toàn trang */
@@ -15,10 +15,10 @@
         }
 
         .main-content {
-            flex: 1; /* Giúp phần nội dung co giãn lấp đầy khoảng trống, đẩy footer xuống đáy */
+            flex: 1;
         }
 
-        /* Tinh chỉnh riêng cho nút Đăng nhập / Đăng xuất trên thanh header */
+        /* Tinh chỉnh nút Đăng nhập / Đăng xuất trên header */
         .auth-nav-btn {
             background: var(--card-bg);
             color: var(--text-main);
@@ -49,7 +49,96 @@
             color: #fff;
         }
 
-        /* CSS chung cho các Hộp thoại Modal tùy chỉnh */
+        /* Form Góp Ý */
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: left;
+        }
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+        .form-group input, 
+        .form-group textarea {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 12px 14px;
+            border-radius: 10px;
+            color: var(--text-main);
+            outline: none;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            font-family: inherit;
+        }
+        .form-group input:focus, 
+        .form-group textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(var(--accent-rgb, 79, 70, 229), 0.15);
+        }
+        .form-submit-btn {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 6px;
+        }
+        .form-submit-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        .form-submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Thông báo trạng thái gửi */
+        .form-status-msg {
+            display: none;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 16px;
+            animation: fadeIn 0.3s ease;
+        }
+        .form-status-msg.success {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .form-status-msg.error {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hộp thoại Modal tùy chỉnh */
         .custom-modal-overlay {
             display: none;
             position: fixed;
@@ -96,7 +185,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* Header Logo (Logo lớp hình tròn) */
+        /* Logo lớp trên header */
         .header-logo-img {
             height: 38px;
             width: 38px;
@@ -112,14 +201,13 @@
         .header-logo-img:hover {
             transform: scale(1.1);
         }
-
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        /* Footer Style: Chữ căn trái, Logo trường hình chữ nhật, Logo lớp hình tròn */
+        /* Footer Style */
         .site-footer {
             display: flex;
             justify-content: space-between;
@@ -144,7 +232,6 @@
             align-items: center;
             gap: 16px;
         }
-        /* Logo trường Chuyên Bến Tre (hình chữ nhật) */
         .footer-right-logos img.school-logo {
             height: 55px;
             width: auto;
@@ -156,7 +243,6 @@
             cursor: zoom-in;
             transition: transform 0.2s ease;
         }
-        /* Logo lớp 10 Toán 2 K36 (hình tròn) */
         .footer-right-logos img.class-logo {
             height: 55px;
             width: 55px;
@@ -174,34 +260,62 @@
     </style>
 </head>
 <body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header Navigation -->
     <header class="header-nav">
         <div class="logo">
             <img src="10_t2_logo.jpeg" alt="Logo 10 Toán 2 K36" title="Bấm để phóng to logo Lớp" class="header-logo-img" onclick="openLightbox('10_t2_logo.jpeg')">
             <h2>10 Toán 2 K36</h2>
         </div>
         <ul class="menu">
-            <li><a href="index.html" class="active">Trang Chủ</a></li>
+            <li><a href="index.html">Trang Chủ</a></li>
             <li><a href="members.html">Thành Viên Lớp</a></li>
             <li><a href="achievements.html">Bảng Vàng Thành Tích</a></li>
             <li><a href="gallery.html">Tư liệu & Kỷ Niệm</a></li>
             <li><a href="about.html">Giới Thiệu</a></li>
-            <li><a href="feedback.html">Góp Ý</a></li>
+            <li><a href="feedback.html" class="active">Góp Ý</a></li>
             <li><button id="theme-toggle" class="theme-btn">🌙 Giao diện</button></li>
             <li><button id="auth-nav-btn" class="auth-nav-btn" onclick="handleAuthNavAction()">🔑 Đăng nhập</button></li>
         </ul>
     </header>
 
+    <!-- Main Content -->
     <main class="main-content">
-        <section class="card">
-            <h2>🌟 Tổng Quan Về Tập Thể 10 Toán 2 K36</h2>
-            
-            <p>🚀 <strong>Khởi Đầu Của Những Ước Mơ Lớn:</strong> Chào mừng toàn thể các bạn đến với ngôi nhà chung vô cùng ấm áp và tự hào của tập thể 10 Toán 2 khóa K36 dưới mái trường THPT Chuyên Bến Tre. Nơi đây không đơn thuần là một lớp chuyên quy tụ những bộ óc ưu tú, mà còn là một không gian thanh xuân rực rỡ, nuôi dưỡng biết bao hoài bão và khát vọng vươn lên của tuổi trẻ. Ngay từ những ngày đầu gia nhập, mỗi thành viên đã mang sẵn trong tim ngọn lửa nhiệt huyết và tình yêu mãnh liệt với các con số cùng những bài toán mang tầm thách thức tư duy.</p>
-            
-            <p>💡 <strong>Thử Thách Và Bản Lĩnh Tư Duy:</strong> Hành trình chinh phục tri thức đỉnh cao chưa bao giờ là con đường trải hoa hồng; trái lại, nó đòi hỏi sự kiên trì tuyệt đối cùng một cái đầu lạnh trước các đề thi hóc búa. Đã bao đêm chúng ta cùng nhau trằn trọc qua màn hình hay trang giấy trắng để tìm ra lời giải trọn vẹn, hay tranh luận sôi nổi để tháo gỡ từng nút thắt hình học phức tạp. Chính những thử thách cam go đó đã tôi luyện cho tập thể một bản lĩnh vững vàng, sự nhạy bén logic và ý chí không bao giờ khuất phục.</p>
-            
-            <p>🤝 <strong>Tình Bạn Khăng Khít Và Sức Mạnh Đoàn Kết:</strong> Bên cạnh những giờ học căng thẳng hay áp lực luyện đề, lớp chúng ta còn là một đại gia đình thực thụ với biết bao kỷ niệm vui buồn đáng nhớ. Đó là những tiếng cười giòn tan trong giờ giải lao, lời động viên kịp thời lúc điểm số chưa như ý, hay sự sẻ chia chí cốt trong mọi hoạt động phong trào. Sợi dây liên kết ấy được bồi đắp từ tình cảm chân thành và sự thấu hiểu, biến một tập thể gồm nhiều cá tính trở thành một khối đoàn kết vững chắc.</p>
-            
-            <p>🎯 <strong>Hướng Tới Tương Lai Rực Rỡ:</strong> Nhìn lại chặng đường đã qua để hướng về phía trước, trang web này được ra đời nhằm lưu giữ trọn vẹn những khoảnh khắc thanh xuân đẹp đẽ nhất. Chúc cho 10 Toán 2 K36 luôn giữ vững ngọn lửa đam mê, sát cánh bên nhau vượt qua mọi chông gai để cùng chạm tay đến những đỉnh cao vinh quang và làm rạng danh truyền thống trường THPT Chuyên Bến Tre!</p>
+        <section class="card animate-on-scroll" style="max-width: 700px; margin: 20px auto; text-align: center;">
+            <h2>💬 Hòm Thư Góp Ý & Đóng Góp</h2>
+            <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem;">
+                Bạn có ý tưởng cải thiện website lớp, báo cáo lỗi, hay muốn gửi lời nhắn nhủ đến tập thể <strong>Kings of Maths (10 Toán 2 K36)</strong>? Hãy chia sẻ với chúng mình nhé!
+            </p>
+
+            <!-- Hộp thông báo trạng thái trực tiếp trên web -->
+            <div id="form-status" class="form-status-msg"></div>
+
+            <!-- Form xử lý gửi ngầm qua JavaScript không chuyển hướng -->
+            <form class="feedback-form" id="feedback-form" onsubmit="submitFormWithoutRedirect(event)">
+                <!-- Khóa truy cập Web3Forms đã được nạp sẵn[cite: 2] -->
+                <input type="hidden" name="access_key" value="db867b88-189f-4a8d-86b4-b2167cd47ebf">
+                
+                <!-- Tùy chọn: Tiêu đề email nhận được[cite: 2] -->
+                <input type="hidden" name="subject" value="Ý kiến góp ý mới từ Website 10 Toán 2 K36">
+
+                <div class="form-group">
+                    <label for="fb-name">Họ và tên (hoặc biệt danh):</label>
+                    <input type="text" id="fb-name" name="name" placeholder="Nhập tên của bạn..." required>
+                </div>
+                <div class="form-group">
+                    <label for="fb-email">Email hoặc liên hệ (không bắt buộc):</label>
+                    <input type="text" id="fb-email" name="email" placeholder="Email / Facebook / SĐT...">
+                </div>
+                <div class="form-group">
+                    <label for="fb-content">Nội dung góp ý / Ý kiến:</label>
+                    <textarea id="fb-content" name="message" rows="5" placeholder="Nhập nội dung bạn muốn gửi gắm..." required></textarea>
+                </div>
+                <button type="submit" id="submit-btn" class="form-submit-btn">🚀 Gửi Góp Ý</button>
+            </form>
         </section>
     </main>
 
@@ -217,29 +331,6 @@
             <img src="10_t2_logo.jpeg" alt="Logo 10 Toán 2 K36" title="Bấm để phóng to logo Lớp" class="class-logo" onclick="openLightbox('10_t2_logo.jpeg')">
         </div>
     </footer>
-
-    <!-- HỘP THOẠI CHÀO MỪNG -->
-    <div id="welcome-modal" class="custom-modal-overlay" style="display: flex;">
-        <div class="custom-modal-box" style="text-align: center; max-width: 400px; position: relative;">
-            <button onclick="closeWelcomeModal()" style="position: absolute; top: 16px; right: 16px; background: transparent; border: none; font-size: 1.1rem; color: var(--text-muted); cursor: pointer;">✕</button>
-            
-            <div style="font-size: 2.5rem; margin-bottom: 10px;">👋</div>
-            <h3 style="color: var(--text-main); margin: 0 0 10px 0; font-size: 1.2rem;">Chào mừng bạn đến với 10 Toán 2 K36!</h3>
-            
-            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin: 0 0 20px 0;">
-                Cảm ơn bạn đã ghé thăm không gian lưu giữ thanh xuân của chúng mình dưới mái trường THPT Chuyên Bến Tre.
-            </p>
-
-            <div style="background: rgba(128, 128, 128, 0.05); border: 1px solid var(--border); padding: 12px; border-radius: 10px; margin-bottom: 20px;">
-                <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px;">Được thực hiện bởi:</div>
-                <div style="font-weight: 600; color: var(--text-main); font-size: 0.95rem;">Thành viên lớp 10 Toán 2</div>
-            </div>
-
-            <button onclick="closeWelcomeModal()" style="display: block; width: 100%; background: var(--accent); color: #fff; border: none; padding: 12px; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 0.95rem; box-sizing: border-box;">
-                Vào trang web
-            </button>
-        </div>
-    </div>
 
     <!-- MODAL NHẬP MẬT KHẨU -->
     <div id="login-modal" class="custom-modal-overlay">
@@ -274,6 +365,7 @@
         <img id="lightbox-img" src="" alt="Phóng to ảnh">
     </div>
 
+    <!-- Script xử lý giao diện -->
     <script>
         const CORRECT_PASS = "10toan2k36";
 
@@ -283,19 +375,46 @@
             } else {
                 updateAuthButtonState(false);
             }
-
-            if (sessionStorage.getItem('welcomed') === 'true') {
-                const welcomeModal = document.getElementById('welcome-modal');
-                if (welcomeModal) welcomeModal.style.display = 'none';
-            }
         });
 
-        function closeWelcomeModal() {
-            const modal = document.getElementById('welcome-modal');
-            if (modal) {
-                modal.style.display = 'none';
-                sessionStorage.setItem('welcomed', 'true');
-            }
+        // Hàm xử lý gửi form ngầm qua AJAX không chuyển hướng trang[cite: 2]
+        function submitFormWithoutRedirect(e) {
+            e.preventDefault();
+            const form = document.getElementById('feedback-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const statusBox = document.getElementById('form-status');
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Đang gửi...';
+            statusBox.style.display = 'none';
+
+            const formData = new FormData(form);
+            
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(async (response) => {
+                const json = await response.json();
+                statusBox.style.display = 'block';
+                if (response.status === 200) {
+                    statusBox.className = 'form-status-msg success';
+                    statusBox.textContent = '🎉 Cảm ơn bạn! Góp ý của bạn đã được gửi thành công đến lớp.';
+                    form.reset();
+                } else {
+                    statusBox.className = 'form-status-msg error';
+                    statusBox.textContent = '❌ Gửi thất bại: ' + (json.message || 'Vui lòng thử lại sau.');
+                }
+            })
+            .catch(error => {
+                statusBox.style.display = 'block';
+                statusBox.className = 'form-status-msg error';
+                statusBox.textContent = '❌ Có lỗi kết nối xảy ra, vui lòng thử lại sau!';
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '🚀 Gửi Góp Ý';
+            });
         }
 
         function handleAuthNavAction() {
@@ -356,6 +475,7 @@
             document.getElementById('lightbox-modal').style.display = 'none';
         }
 
+        // Chuyển đổi Light/Dark mode
         const themeToggleBtn = document.getElementById('theme-toggle');
         const body = document.body;
 
