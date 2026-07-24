@@ -278,3 +278,73 @@ body.light-mode .math-quote {
     opacity: 1;
     transform: translateY(0);
 }
+/* --- TỐI ƯU HÓA CHO THIẾT BỊ DI ĐỘNG (MOBILE RESPONSIVE) --- */
+@media (max-width: 768px) {
+    /* Thu hẹp lề Header trên điện thoại */
+    .header-nav {
+        padding: 0.8rem 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Chuyển menu ngang thành danh sách gọn gàng có thể cuộn ngang hoặc xếp dọc */
+    .menu {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 0.4rem;
+        gap: 0.4rem;
+    }
+
+    .menu li a {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+
+    /* Thu hẹp lề khung chính (main-content) */
+    .main-content {
+        width: 96%;
+        margin: 1rem auto;
+        padding: 0 0.5rem;
+    }
+
+    /* Thu nhỏ padding của Card để tiết kiệm không gian màn hình nhỏ */
+    .card {
+        padding: 1.2rem;
+        border-radius: 14px;
+        margin-bottom: 1.2rem;
+    }
+
+    .card h2 {
+        font-size: 1.2rem;
+    }
+
+    /* Ẩn bớt các đốm sáng nền (glow blobs) trên mobile để đỡ nặng hiệu ứng và tránh tràn màn hình */
+    body::before, body::after {
+        display: none;
+    }
+
+    /* Biến bảng danh sách thành viên thành dạng cuộn ngang nếu màn hình quá nhỏ */
+    .member-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .member-table th, .member-table td {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+
+    /* Footer chuyển thành xếp dọc */
+    .site-footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        padding: 20px 15px;
+    }
+
+    .footer-left-content {
+        text-align: center;
+    }
+}
