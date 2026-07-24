@@ -68,8 +68,9 @@
             color: var(--text-main);
             font-size: 0.95rem;
         }
-        .form-group input, 
-        .form-group textarea {
+        .form-group input[type="text"], 
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -82,8 +83,9 @@
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
             font-family: inherit;
         }
-        .form-group input:focus, 
-        .form-group textarea:focus {
+        .form-group input[type="text"]:focus, 
+        .form-group textarea:focus,
+        .form-group select:focus {
             border-color: var(--accent);
             box-shadow: 0 0 0 3px rgba(var(--accent-rgb, 79, 70, 229), 0.15);
         }
@@ -286,9 +288,9 @@
     <!-- Main Content -->
     <main class="main-content">
         <section class="card animate-on-scroll" style="max-width: 700px; margin: 20px auto; text-align: center;">
-            <h2>💬 Hòm Thư Góp Ý & Đóng Góp</h2>
+            <h2>💬 Feedback</h2>
             <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem;">
-                Bạn có ý tưởng cải thiện website lớp, báo cáo lỗi, hay muốn gửi lời nhắn nhủ đến tập thể <strong>Kings of Maths (10 Toán 2 K36)</strong>? Hãy chia sẻ với chúng mình nhé!
+                Bạn có ý tưởng cải thiện website lớp, báo cáo lỗi, hay muốn gửi lời nhắn nhủ đến tập thể <strong>10 Toán 2</strong>? Hãy chia sẻ với chúng mình nhé!
             </p>
 
             <!-- Hộp thông báo trạng thái trực tiếp trên web -->
@@ -296,10 +298,10 @@
 
             <!-- Form xử lý gửi ngầm qua JavaScript không chuyển hướng -->
             <form class="feedback-form" id="feedback-form" onsubmit="submitFormWithoutRedirect(event)">
-                <!-- Khóa truy cập Web3Forms đã được nạp sẵn[cite: 2] -->
+                <!-- Khóa truy cập Web3Forms đã được nạp sẵn -->
                 <input type="hidden" name="access_key" value="db867b88-189f-4a8d-86b4-b2167cd47ebf">
                 
-                <!-- Tùy chọn: Tiêu đề email nhận được[cite: 2] -->
+                <!-- Tùy chọn: Tiêu đề email nhận được -->
                 <input type="hidden" name="subject" value="Ý kiến góp ý mới từ Website 10 Toán 2 K36">
 
                 <div class="form-group">
@@ -307,13 +309,29 @@
                     <input type="text" id="fb-name" name="name" placeholder="Nhập tên của bạn..." required>
                 </div>
                 <div class="form-group">
-                    <label for="fb-email">Email hoặc liên hệ (không bắt buộc):</label>
+                    <label for="fb-email">Email hoặc thông tin liên hệ (không bắt buộc):</label>
                     <input type="text" id="fb-email" name="email" placeholder="Email / Facebook / SĐT...">
                 </div>
+                
+                <!-- Trường chọn mức độ đánh giá sao (0 đến 5) -->
                 <div class="form-group">
-                    <label for="fb-content">Nội dung góp ý / Ý kiến:</label>
+                    <label for="fb-rating">Đánh giá trải nghiệm của bạn:</label>
+                    <select id="fb-rating" name="rating" required>
+                        <option value="" disabled selected>-- Chọn mức độ đánh giá --</option>
+                        <option value="5 Sao - Rất tuyệt vời">5 Sao ⭐⭐⭐⭐⭐ - Rất tuyệt vời, mượt mà và đúng ý hoàn toàn!</option>
+                        <option value="4 Sao - Tốt">4 Sao ⭐⭐⭐⭐ - Tốt, đáp ứng đúng nhu cầu.</option>
+                        <option value="3 Sao - Bình thường">3 Sao ⭐⭐⭐ - Bình thường, tạm ổn.</option>
+                        <option value="2 Sao - Chưa ưng ý lắm">2 Sao ⭐⭐ - Chưa ưng ý lắm, cần cải thiện thêm.</option>
+                        <option value="1 Sao - Trải nghiệm tệ">1 Sao ⭐ - Trải nghiệm tệ, gặp nhiều lỗi.</option>
+                        <option value="0 Sao - Rất không hài lòng">0 Sao ⭐ - Rất không hài lòng.</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="fb-content">Nội dung góp ý:</label>
                     <textarea id="fb-content" name="message" rows="5" placeholder="Nhập nội dung bạn muốn gửi gắm..." required></textarea>
                 </div>
+
                 <button type="submit" id="submit-btn" class="form-submit-btn">🚀 Gửi Góp Ý</button>
             </form>
         </section>
@@ -377,7 +395,7 @@
             }
         });
 
-        // Hàm xử lý gửi form ngầm qua AJAX không chuyển hướng trang[cite: 2]
+        // Hàm xử lý gửi form ngầm qua AJAX không chuyển hướng trang
         function submitFormWithoutRedirect(e) {
             e.preventDefault();
             const form = document.getElementById('feedback-form');
@@ -399,7 +417,7 @@
                 statusBox.style.display = 'block';
                 if (response.status === 200) {
                     statusBox.className = 'form-status-msg success';
-                    statusBox.textContent = '🎉 Cảm ơn bạn! Góp ý của bạn đã được gửi thành công đến lớp.';
+                    statusBox.textContent = '🎉 Cảm ơn bạn! Đánh giá và góp ý của bạn đã được gửi thành công đến lớp.';
                     form.reset();
                 } else {
                     statusBox.className = 'form-status-msg error';
