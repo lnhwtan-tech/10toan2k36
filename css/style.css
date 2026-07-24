@@ -6,19 +6,19 @@
     --text-muted: #9ca3af;
     --accent: #38bdf8;
     --border: rgba(255, 255, 255, 0.12);
-    --shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
+    --shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.2);
     --backdrop: blur(16px);
 }
 
 /* Chế độ Sáng (Light Glass) */
 body.light-mode {
     --bg-main: radial-gradient(circle at 50% -20%, #e0f2fe 0%, #f1f5f9 70%, #e2e8f0 100%);
-    --card-bg: rgba(255, 255, 255, 0.82);
+    --card-bg: rgba(255, 255, 255, 0.85);
     --text-main: #0f172a;
     --text-muted: #475569;
     --accent: #0284c7;
-    --border: rgba(255, 255, 255, 0.8);
-    --shadow: 0 15px 35px -10px rgba(100, 116, 139, 0.15);
+    --border: rgba(255, 255, 255, 0.9);
+    --shadow: 0 20px 40px rgba(100, 116, 139, 0.12), 0 1px 3px rgba(100, 116, 139, 0.08);
     --backdrop: blur(16px);
 }
 
@@ -33,7 +33,41 @@ body {
     background-attachment: fixed;
     color: var(--text-main);
     min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
     transition: background 0.4s ease, color 0.3s ease;
+}
+
+/* Đốm sáng mờ (Glow Blobs) phía sau nền trang web */
+body::before, body::after {
+    content: '';
+    position: fixed;
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    filter: blur(90px);
+    z-index: -1;
+    opacity: 0.45;
+    animation: floatBlob 12s infinite alternate ease-in-out;
+    pointer-events: none;
+}
+
+body::before {
+    top: -100px;
+    left: -100px;
+    background: linear-gradient(135deg, #38bdf8, #6366f1);
+}
+
+body::after {
+    bottom: -100px;
+    right: -100px;
+    background: linear-gradient(135deg, #ec4899, #8b5cf6);
+    animation-delay: -6s;
+}
+
+@keyframes floatBlob {
+    0% { transform: translateY(0px) scale(1); }
+    100% { transform: translateY(35px) scale(1.08); }
 }
 
 /* Thanh Header kính mờ cao cấp */
@@ -51,7 +85,7 @@ body {
     padding: 1rem 2.5rem;
     flex-wrap: wrap;
     gap: 1rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .logo h2 {
@@ -77,7 +111,6 @@ body {
     padding: 0.5rem 0.9rem;
     border-radius: 10px;
     border: 1px solid transparent;
-    /* Hiệu ứng nảy (spring/bounce) mượt mà */
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -86,7 +119,7 @@ body {
     background: var(--card-bg);
     border-color: var(--border);
     transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .menu li a:active {
@@ -104,7 +137,7 @@ body {
     border-radius: 10px;
     cursor: pointer;
     font-weight: 600;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -120,35 +153,37 @@ body {
     transform: translateY(-1px) scale(0.98);
 }
 
+/* Mở rộng khung chính lên 1100px cân đối màn hình máy tính */
 .main-content {
-    max-width: 1000px;
+    max-width: 1100px;
+    width: 94%;
     margin: 2.5rem auto;
     padding: 0 1.5rem;
 }
 
-/* Các khung Card nổi khối kính mờ */
+/* Các khung Card nổi khối kính mờ, bo góc 20px, bóng đổ đa tầng và viền sáng nhẹ */
 .card {
     background: var(--card-bg);
     backdrop-filter: var(--backdrop);
     -webkit-backdrop-filter: var(--backdrop);
     border: 1px solid var(--border);
     border-radius: 20px;
-    padding: 2rem;
-    margin-bottom: 1.5rem;
+    padding: 2.2rem;
+    margin-bottom: 1.8rem;
     box-shadow: var(--shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .card:hover {
     transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .card h2 {
     color: var(--accent);
     margin-top: 0;
-    font-size: 1.4rem;
+    font-size: 1.45rem;
     border-bottom: 1px solid var(--border);
     padding-bottom: 0.8rem;
     font-weight: 600;
@@ -159,7 +194,7 @@ body {
     border-left: 4px solid var(--accent);
     padding: 1.2rem;
     margin-top: 1.2rem;
-    border-radius: 10px;
+    border-radius: 12px;
     backdrop-filter: blur(8px);
     border: 1px solid var(--border);
 }
@@ -191,12 +226,13 @@ body.light-mode .math-quote {
 }
 
 .member-table tr:nth-child(even) {
-    background: rgba(128, 128, 128, 0.05);
+    background: rgba(128, 128, 128, 0.04);
 }
 
 .member-table tr:hover {
     background: rgba(56, 189, 248, 0.08);
 }
+
 /* --- Preloader chung cho mọi trang --- */
 #preloader {
     position: fixed;
