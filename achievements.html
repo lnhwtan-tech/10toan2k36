@@ -682,7 +682,7 @@
             if (input.files && input.files[0]) {
                 const file = input.files[0];
                 if (!file.type.startsWith('image/')) {
-                    alert('Vui lòng chọn file hình ảnh hợp lệ.');
+                    showToast('Vui lòng chọn file hình ảnh hợp lệ.');
                     input.value = '';
                     return;
                 }
@@ -717,12 +717,12 @@
             const visibility = document.getElementById('ach-visibility').value;
 
             if (!studentName || !title) {
-                alert('Vui lòng điền đầy đủ tên học sinh và tên giải thưởng.');
+                showToast('Vui lòng điền đầy đủ tên học sinh và tên giải thưởng.');
                 return;
             }
 
             if (!selectedFileObj) {
-                alert('Vui lòng đính kèm hình ảnh minh họa hoặc giấy khen.');
+                showToast('Vui lòng đính kèm hình ảnh minh họa hoặc giấy khen.');
                 return;
             }
 
@@ -841,7 +841,7 @@
             if (localStorage.getItem('class_unlocked') !== 'true') return;
             const checkboxes = document.querySelectorAll('.achievement-checkbox:checked');
             if (checkboxes.length === 0) {
-                alert('Vui lòng chọn ít nhất một mục để xóa.');
+                showToast('Vui lòng chọn ít nhất một mục để xóa.');
                 return;
             }
 
@@ -914,5 +914,36 @@
         }
     </script>
     <script src="js/animation.js"></script>
+
+<!-- Hộp thông báo nổi (Toast Notification) -->
+<div id="toastMessage" style="position: fixed; bottom: 20px; right: 20px; background: var(--card-bg); backdrop-filter: var(--backdrop); border: 1px solid var(--accent); color: var(--text-main); padding: 12px 20px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: translateY(100px); opacity: 0; transition: all 0.4s ease; z-index: 9999;">
+    ✨ Thao tác thành công!
+</div>
+
+<script>
+    function showToast(message = "✨ Thao tác thành công!") {
+        let toast = document.getElementById('toastMessage');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'toastMessage';
+            toast.style.cssText = "position: fixed; bottom: 20px; right: 20px; background: var(--card-bg); backdrop-filter: var(--backdrop); border: 1px solid var(--accent); color: var(--text-main); padding: 12px 20px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: translateY(100px); opacity: 0; transition: all 0.4s ease; z-index: 9999;";
+            document.body.appendChild(toast);
+        }
+        // Nếu truyền vào đối tượng hoặc chuỗi, lấy text hiển thị
+        if (typeof message === 'object') {
+            message = JSON.stringify(message);
+        }
+        toast.innerText = message;
+        setTimeout(() => {
+            toast.style.transform = 'translateY(0)';
+            toast.style.opacity = '1';
+        }, 100);
+        setTimeout(() => {
+            toast.style.transform = 'translateY(100px)';
+            toast.style.opacity = '0';
+        }, 3000);
+    }
+</script>
+
 </body>
 </html>
