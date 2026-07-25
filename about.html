@@ -92,6 +92,32 @@
             text-decoration: underline;
         }
 
+        /* KHUNG CARD ĐỘC LẬP CHO YOUTUBE IFRAME */
+        .video-frame-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 850px;
+            margin: 16px auto 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid var(--border);
+            background: #0b0f19;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            aspect-ratio: 16 / 9; /* Giữ tỷ lệ khung hình chuẩn YouTube */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .video-frame-wrapper:hover {
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        }
+        .video-frame-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         /* Hộp thoại Modal tùy chỉnh */
         .custom-modal-overlay {
             display: none;
@@ -239,7 +265,7 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- PHẦN 1: THÔNG TIN LỚP & QUẢN LÝ -->
+        <!-- PHẦN 1: THÔNG TIN TẬP THỂ LỚP -->
         <section class="card animate-on-scroll">
             <h2>🌟 Về Tập Thể Lớp 10 Toán 2 K36</h2>
             <div class="intro-container">
@@ -254,7 +280,24 @@
             </div>
         </section>
 
-        <!-- PHẦN 2: GIỚI THIỆU VỀ TRƯỜNG -->
+        <!-- PHẦN 2: KHUNG CARD ĐỘC LẬP CHO VIDEO YOUTUBE -->
+        <section class="card animate-on-scroll">
+            <h2>🎬 Video Giới Thiệu Lớp 10 Toán 2</h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 8px;">
+                Thước phim ngắn lưu giữ những khoảnh khắc và kỷ niệm đẹp của tập thể lớp chúng ta.
+            </p>
+            
+            <!-- Khung chứa video YouTube nhúng -->
+            <div class="video-frame-wrapper">
+                <iframe src="https://www.youtube.com/embed/HbXp9Q2y0oE" 
+                        title="Video Giới Thiệu Lớp 10 Toán 2 K36 - THPT Chuyên Bến Tre" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <!-- PHẦN 3: GIỚI THIỆU VỀ TRƯỜNG -->
         <section class="card animate-on-scroll">
             <h2>🏫 Về Trường THPT Chuyên Bến Tre</h2>
             <div class="intro-container">
@@ -316,12 +359,12 @@
         <img id="lightbox-img" src="" alt="Phóng to ảnh">
     </div>
 
-    <!-- Script xử lý giao diện và đăng nhập -->
+    <!-- Script xử lý giao diện -->
     <script>
         const CORRECT_PASS = "10toan2k36";
 
         window.addEventListener('DOMContentLoaded', () => {
-            if (localStorage.getItem('class_unlocked') === 'true') {
+            if (localStorage.getItem('class_unlogged') === 'true' || localStorage.getItem('class_unlocked') === 'true') {
                 updateAuthButtonState(true);
             } else {
                 updateAuthButtonState(false);
