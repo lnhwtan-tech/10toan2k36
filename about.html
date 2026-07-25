@@ -13,11 +13,9 @@
             display: flex;
             flex-direction: column;
         }
-
         .main-content {
             flex: 1;
         }
-
         /* Tinh chỉnh nút Đăng nhập / Đăng xuất trên header */
         .auth-nav-btn {
             background: var(--card-bg);
@@ -48,7 +46,6 @@
             background: #ef4444;
             color: #fff;
         }
-
         /* Bố cục nội dung phần giới thiệu */
         .intro-container {
             display: flex;
@@ -91,7 +88,6 @@
         .intro-info a:hover {
             text-decoration: underline;
         }
-
         /* KHUNG CARD ĐỘC LẬP CHO YOUTUBE IFRAME */
         .video-frame-wrapper {
             position: relative;
@@ -117,7 +113,6 @@
             height: 100%;
             border: none;
         }
-
         /* Hộp thoại Modal tùy chỉnh */
         .custom-modal-overlay {
             display: none;
@@ -145,7 +140,6 @@
             from { transform: scale(0.9); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
-
         /* Lightbox phóng to ảnh */
         #lightbox-modal {
             display: none;
@@ -164,7 +158,6 @@
             border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
         /* Logo lớp trên header */
         .header-logo-img {
             height: 38px;
@@ -186,7 +179,6 @@
             align-items: center;
             gap: 10px;
         }
-
         /* Footer Style */
         .site-footer {
             display: flex;
@@ -240,12 +232,9 @@
     </style>
 </head>
 <body>
-    <!-- Preloader -->
     <div id="preloader">
         <div class="spinner"></div>
     </div>
-
-    <!-- Header Navigation -->
     <header class="header-nav">
         <div class="logo">
             <img src="10_t2_logo.jpeg" alt="Logo 10 Toán 2 K36" title="Bấm để phóng to logo Lớp" class="header-logo-img" onclick="openLightbox('10_t2_logo.jpeg')">
@@ -263,10 +252,7 @@
             <li><button id="fx-toggle-btn" class="fx-menu-btn" onclick="toggleMathEffects()">✨ Hiệu ứng: Bật</button></li>
         </ul>
     </header>
-
-    <!-- Main Content -->
     <main class="main-content">
-        <!-- PHẦN 1: THÔNG TIN TẬP THỂ LỚP -->
         <section class="card animate-on-scroll">
             <h2>🌟 Về Tập Thể Lớp 10 Toán 2 K36</h2>
             <div class="intro-container">
@@ -280,15 +266,11 @@
                 </div>
             </div>
         </section>
-
-        <!-- PHẦN 2: KHUNG CARD ĐỘC LẬP CHO VIDEO YOUTUBE -->
         <section class="card animate-on-scroll">
             <h2>🎬 Video Giới Thiệu Lớp 10 Toán 2</h2>
             <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 8px;">
                 Thước phim ngắn lưu giữ những khoảnh khắc và kỷ niệm đẹp của tập thể lớp chúng ta.
             </p>
-            
-            <!-- Khung chứa video YouTube nhúng -->
             <div class="video-frame-wrapper">
                 <iframe src="https://www.youtube.com/embed/HbXp9Q2y0oE" 
                         title="Video Giới Thiệu Lớp 10 Toán 2 K36 - THPT Chuyên Bến Tre" 
@@ -297,8 +279,6 @@
                 </iframe>
             </div>
         </section>
-
-        <!-- PHẦN 3: GIỚI THIỆU VỀ TRƯỜNG -->
         <section class="card animate-on-scroll">
             <h2>🏫 Về Trường THPT Chuyên Bến Tre</h2>
             <div class="intro-container">
@@ -313,8 +293,6 @@
             </div>
         </section>
     </main>
-
-    <!-- CHÂN TRANG (FOOTER) -->
     <footer class="site-footer">
         <div class="footer-left-content">
             <p><strong>Lớp 10 Toán 2 - K36</strong></p>
@@ -326,8 +304,6 @@
             <img src="10_t2_logo.jpeg" alt="Logo 10 Toán 2 K36" title="Bấm để phóng to logo Lớp" class="class-logo" onclick="openLightbox('10_t2_logo.jpeg')">
         </div>
     </footer>
-
-    <!-- MODAL NHẬP MẬT KHẨU -->
     <div id="login-modal" class="custom-modal-overlay">
         <div class="custom-modal-box">
             <div style="font-size: 2rem; margin-bottom: 8px;">🔐</div>
@@ -341,8 +317,6 @@
             </div>
         </div>
     </div>
-
-    <!-- MODAL XÁC NHẬN ĐĂNG XUẤT -->
     <div id="logout-modal" class="custom-modal-overlay">
         <div class="custom-modal-box">
             <div style="font-size: 2rem; margin-bottom: 8px;">⚠️</div>
@@ -354,16 +328,11 @@
             </div>
         </div>
     </div>
-
-    <!-- LIGHTBOX PHÓNG TO ẢNH -->
     <div id="lightbox-modal" onclick="closeLightbox()">
         <img id="lightbox-img" src="" alt="Phóng to ảnh">
     </div>
-
-    <!-- Script xử lý giao diện -->
     <script>
         const CORRECT_PASS = "10toan2k36";
-
         window.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem('class_unlogged') === 'true' || localStorage.getItem('class_unlocked') === 'true') {
                 updateAuthButtonState(true);
@@ -371,7 +340,6 @@
                 updateAuthButtonState(false);
             }
         });
-
         function handleAuthNavAction() {
             if (localStorage.getItem('class_unlocked') === 'true') {
                 document.getElementById('logout-modal').style.display = 'flex';
@@ -382,11 +350,9 @@
                 setTimeout(() => document.getElementById('modal-pass-input').focus(), 100);
             }
         }
-
         function closeLoginModal() {
             document.getElementById('login-modal').style.display = 'none';
         }
-
         function submitLogin() {
             const passVal = document.getElementById('modal-pass-input').value;
             if (passVal === CORRECT_PASS) {
@@ -398,17 +364,14 @@
                 document.getElementById('modal-err').style.display = 'block';
             }
         }
-
         function closeLogoutModal() {
             document.getElementById('logout-modal').style.display = 'none';
         }
-
         function confirmLogout() {
             localStorage.removeItem('class_unlocked');
             updateAuthButtonState(false);
             location.reload();
         }
-
         function updateAuthButtonState(isLoggedIn) {
             const btn = document.getElementById('auth-nav-btn');
             if (!btn) return;
@@ -420,29 +383,22 @@
                 btn.className = 'auth-nav-btn';
             }
         }
-
         function openLightbox(url) {
             document.getElementById('lightbox-img').src = url;
             document.getElementById('lightbox-modal').style.display = 'flex';
         }
-
         function closeLightbox() {
             document.getElementById('lightbox-modal').style.display = 'none';
         }
-
-        // Chuyển đổi Light/Dark mode
         const themeToggleBtn = document.getElementById('theme-toggle');
         const body = document.body;
-
         if (localStorage.getItem('theme') === 'light') {
             body.classList.add('light-mode');
             if (themeToggleBtn) themeToggleBtn.textContent = '☀️ Giao diện';
         }
-
         if (themeToggleBtn) {
             themeToggleBtn.addEventListener('click', () => {
                 body.classList.toggle('light-mode');
-                
                 if (body.classList.contains('light-mode')) {
                     themeToggleBtn.textContent = '☀️ Giao diện';
                     localStorage.setItem('theme', 'light');
@@ -455,74 +411,53 @@
     </script>
     <script src="js/animation.js"></script>
     <script>
-    // Tự động tạo các ký hiệu toán học rơi từ trên xuống dưới
     window.addEventListener('DOMContentLoaded', () => {
         const symbols = ['π', '∫', '∑', 'Δ', '√', 'α', 'β', 'θ', '∞', 'f(x)', 'lim', 'φ'];
         const container = document.createElement('div');
         container.className = 'math-bg-animation';
         document.body.appendChild(container);
-
-        // Số lượng ký hiệu hiển thị cùng lúc trên màn hình
         const symbolCount = 18; 
-
         for (let i = 0; i < symbolCount; i++) {
             const span = document.createElement('span');
             span.className = 'math-symbol';
             span.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-            
-            // Random vị trí ngang, kích thước và tốc độ rơi
             span.style.left = Math.random() * 100 + 'vw';
             span.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
-            span.style.animationDuration = (Math.random() * 10 + 10) + 's'; // Tốc độ rơi từ 10 đến 20 giây cho mượt
+            span.style.animationDuration = (Math.random() * 10 + 10) + 's'; 
             span.style.animationDelay = (Math.random() * 10) + 's';
-            
             container.appendChild(span);
         }
     });
 </script>
 <script>
-    // Khởi tạo hiệu ứng con trỏ chùm tia tọa độ
     window.addEventListener('DOMContentLoaded', () => {
         const dot = document.createElement('div');
         dot.className = 'math-ray-dot';
-        
         const ring = document.createElement('div');
         ring.className = 'math-ray-ring';
-        
         const pulse = document.createElement('div');
         pulse.className = 'math-ray-pulse';
-
         document.body.appendChild(dot);
         document.body.appendChild(ring);
         document.body.appendChild(pulse);
-
         let mouseX = 0, mouseY = 0;
         let currentX = 0, currentY = 0;
-
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
         });
-
-        // Hàm render chuyển động bám đuổi mượt mà
         function renderRayCursor() {
             currentX += (mouseX - currentX) * 0.25;
             currentY += (mouseY - currentY) * 0.25;
-
             dot.style.left = currentX + 'px';
             dot.style.top = currentY + 'px';
-
             ring.style.left = currentX + 'px';
             ring.style.top = currentY + 'px';
-
             pulse.style.left = currentX + 'px';
             pulse.style.top = currentY + 'px';
-
             requestAnimationFrame(renderRayCursor);
         }
         renderRayCursor();
-
-        // Xử lý hiệu ứng khi tương tác với nút/link
         const interactiveElements = document.querySelectorAll('a, button, input, .intro-logo, .video-frame-wrapper, select');
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
@@ -531,34 +466,24 @@
     });
 </script>
 <script>
-    // Hiệu ứng click chuột tóe ký hiệu toán học
     window.addEventListener('click', (e) => {
         const mathChars = ['+', '-', '×', '÷', '=', 'π', '∫', '∑', 'Δ', '√', '0', '1'];
-        const particleCount = 6; // Số lượng ký hiệu bay ra mỗi lần click
-
+        const particleCount = 6; 
         for (let i = 0; i < particleCount; i++) {
             const span = document.createElement('span');
             span.className = 'math-click-particle';
             span.textContent = mathChars[Math.floor(Math.random() * mathChars.length)];
-            
-            // Đặt vị trí xuất hiện tại tọa độ click chuột
             span.style.left = e.clientX + 'px';
             span.style.top = e.clientY + 'px';
-
-            // Tính toán hướng bay ngẫu nhiên theo hình tròn
             const angle = Math.random() * Math.PI * 2;
-            const distance = Math.random() * 80 + 40; // Khoảng cách bay xa
+            const distance = Math.random() * 80 + 40; 
             const tx = Math.cos(angle) * distance;
             const ty = Math.sin(angle) * distance;
-            const tr = (Math.random() - 0.5) * 360; // Góc xoay ngẫu nhiên
-
+            const tr = (Math.random() - 0.5) * 360; 
             span.style.setProperty('--tx', tx + 'px');
             span.style.setProperty('--ty', ty + 'px');
             span.style.setProperty('--tr', tr + 'deg');
-
             document.body.appendChild(span);
-
-            // Tự động xóa phần tử sau khi chạy xong animation để tránh nặng web
             setTimeout(() => {
                 span.remove();
             }, 800);
@@ -566,29 +491,22 @@
     });
 </script>
 <script>
-    // Quản lý trạng thái Bật/Tắt hiệu ứng trên menu
     function toggleMathEffects() {
         const isCurrentlyDisabled = document.body.classList.contains('fx-disabled');
         const fxBtn = document.getElementById('fx-toggle-btn');
-
         if (isCurrentlyDisabled) {
-            // Đang tắt -> Bật lại
             document.body.classList.remove('fx-disabled');
             if (fxBtn) fxBtn.innerHTML = '✨ Hiệu ứng: Bật';
             localStorage.setItem('math_fx_enabled', 'true');
         } else {
-            // Đang bật -> Tắt đi
             document.body.classList.add('fx-disabled');
             if (fxBtn) fxBtn.innerHTML = '✨ Hiệu ứng: Tắt';
             localStorage.setItem('math_fx_enabled', 'false');
         }
     }
-
-    // Khôi phục trạng thái đã lưu khi tải trang
     window.addEventListener('DOMContentLoaded', () => {
         const fxEnabled = localStorage.getItem('math_fx_enabled') !== 'false';
         const fxBtn = document.getElementById('fx-toggle-btn');
-
         if (!fxEnabled) {
             document.body.classList.add('fx-disabled');
             if (fxBtn) fxBtn.innerHTML = '✨ Hiệu ứng: Tắt';
@@ -597,12 +515,9 @@
             if (fxBtn) fxBtn.innerHTML = '✨ Hiệu ứng: Bật';
         }
     });
-
-    // Cập nhật lại phần hiệu ứng click chuột để tự động ngưng khi tắt
     const originalWindowClick = window.onclick;
     window.addEventListener('click', (e) => {
         if (document.body.classList.contains('fx-disabled')) return;
-        // Hiệu ứng tóe ký hiệu toán học khi click sẽ chạy ở đây
     }, true);
 </script>
 </body>

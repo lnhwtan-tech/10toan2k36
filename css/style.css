@@ -1,5 +1,4 @@
 :root {
-    /* Nền tối sâu thẳm, dịu mắt hơn */
     --bg-main: radial-gradient(circle at 50% -20%, #1e1b4b 0%, #0b0f19 70%, #030712 100%);
     --card-bg: rgba(17, 24, 39, 0.7);
     --text-main: #f3f4f6;
@@ -9,8 +8,6 @@
     --shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.2);
     --backdrop: blur(16px);
 }
-
-/* Chế độ Sáng (Light Glass) */
 body.light-mode {
     --bg-main: radial-gradient(circle at 50% -20%, #e0f2fe 0%, #f1f5f9 70%, #e2e8f0 100%);
     --card-bg: rgba(255, 255, 255, 0.85);
@@ -21,11 +18,9 @@ body.light-mode {
     --shadow: 0 20px 40px rgba(100, 116, 139, 0.12), 0 1px 3px rgba(100, 116, 139, 0.08);
     --backdrop: blur(16px);
 }
-
 * {
     box-sizing: border-box;
 }
-
 body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -37,8 +32,6 @@ body {
     overflow-x: hidden;
     transition: background 0.4s ease, color 0.3s ease;
 }
-
-/* Đốm sáng mờ (Glow Blobs) phía sau nền trang web */
 body::before, body::after {
     content: '';
     position: fixed;
@@ -51,26 +44,21 @@ body::before, body::after {
     animation: floatBlob 12s infinite alternate ease-in-out;
     pointer-events: none;
 }
-
 body::before {
     top: -100px;
     left: -100px;
     background: linear-gradient(135deg, #38bdf8, #6366f1);
 }
-
 body::after {
     bottom: -100px;
     right: -100px;
     background: linear-gradient(135deg, #ec4899, #8b5cf6);
     animation-delay: -6s;
 }
-
 @keyframes floatBlob {
     0% { transform: translateY(0px) scale(1); }
     100% { transform: translateY(35px) scale(1.08); }
 }
-
-/* Thanh Header kính mờ cao cấp */
 .header-nav {
     background: var(--card-bg);
     backdrop-filter: var(--backdrop);
@@ -87,14 +75,12 @@ body::after {
     gap: 1rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
-
 .logo h2 {
     margin: 0;
     color: var(--accent);
     font-size: 1.35rem;
     font-weight: 700;
 }
-
 .menu {
     list-style: none;
     display: flex;
@@ -103,7 +89,6 @@ body::after {
     padding: 0;
     align-items: center;
 }
-
 .menu li a {
     color: var(--text-muted);
     text-decoration: none;
@@ -113,7 +98,6 @@ body::after {
     border: 1px solid transparent;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-
 .menu li a:hover, .menu li a.active {
     color: var(--accent);
     background: var(--card-bg);
@@ -121,12 +105,9 @@ body::after {
     transform: translateY(-3px) scale(1.03);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
-
 .menu li a:active {
     transform: translateY(-1px) scale(0.98);
 }
-
-/* Nút chuyển giao diện kính mờ có độ nảy */
 .theme-btn {
     background: var(--card-bg);
     backdrop-filter: var(--backdrop);
@@ -140,7 +121,6 @@ body::after {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-
 .theme-btn:hover {
     background: var(--accent);
     color: #ffffff;
@@ -148,20 +128,15 @@ body::after {
     transform: translateY(-3px) scale(1.03);
     box-shadow: 0 6px 20px rgba(56, 189, 248, 0.25);
 }
-
 .theme-btn:active {
     transform: translateY(-1px) scale(0.98);
 }
-
-/* Mở rộng khung chính lên 1100px cân đối màn hình máy tính */
 .main-content {
     max-width: 1100px;
     width: 94%;
     margin: 2.5rem auto;
     padding: 0 1.5rem;
 }
-
-/* Các khung Card nổi khối kính mờ, bo góc 20px, bóng đổ đa tầng và viền sáng nhẹ */
 .card {
     background: var(--card-bg);
     backdrop-filter: var(--backdrop);
@@ -173,13 +148,11 @@ body::after {
     box-shadow: var(--shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
-
 .card:hover {
     transform: translateY(-4px);
     border-color: rgba(255, 255, 255, 0.5);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.1);
 }
-
 .card h2 {
     color: var(--accent);
     margin-top: 0;
@@ -188,7 +161,6 @@ body::after {
     padding-bottom: 0.8rem;
     font-weight: 600;
 }
-
 .math-quote {
     background: rgba(255, 255, 255, 0.03);
     border-left: 4px solid var(--accent);
@@ -198,12 +170,9 @@ body::after {
     backdrop-filter: blur(8px);
     border: 1px solid var(--border);
 }
-
 body.light-mode .math-quote {
     background: rgba(0, 0, 0, 0.02);
 }
-
-/* Tùy chỉnh bảng danh sách thành viên */
 .member-table {
     width: 100%;
     border-collapse: collapse;
@@ -211,29 +180,23 @@ body.light-mode .math-quote {
     color: var(--text-main);
     background: transparent;
 }
-
 .member-table th, .member-table td {
     border: 1px solid var(--border);
     padding: 14px 18px;
     text-align: left;
     color: var(--text-main);
 }
-
 .member-table th {
     background: rgba(56, 189, 248, 0.15);
     color: var(--accent);
     font-weight: 600;
 }
-
 .member-table tr:nth-child(even) {
     background: rgba(128, 128, 128, 0.04);
 }
-
 .member-table tr:hover {
     background: rgba(56, 189, 248, 0.08);
 }
-
-/* --- Preloader chung cho mọi trang --- */
 #preloader {
     position: fixed;
     top: 0;
@@ -247,7 +210,6 @@ body.light-mode .math-quote {
     z-index: 9999;
     transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
 }
-
 .spinner {
     border: 4px solid rgba(0, 0, 0, 0.1);
     border-top: 4px solid var(--accent, #0d47a1);
@@ -256,99 +218,75 @@ body.light-mode .math-quote {
     height: 40px;
     animation: spin 1s linear infinite;
 }
-
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-
 #preloader.loaded {
     opacity: 0;
     visibility: hidden;
 }
-
-/* --- Hiệu ứng cuộn trang dùng chung --- */
 .animate-on-scroll {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
-
 .animate-on-scroll.is-visible {
     opacity: 1;
     transform: translateY(0);
 }
-/* --- TỐI ƯU HÓA CHO THIẾT BỊ DI ĐỘNG (MOBILE RESPONSIVE) --- */
 @media (max-width: 768px) {
-    /* Thu hẹp lề Header trên điện thoại */
     .header-nav {
         padding: 0.8rem 1rem;
         flex-direction: column;
         align-items: flex-start;
     }
-
-    /* Chuyển menu ngang thành danh sách gọn gàng có thể cuộn ngang hoặc xếp dọc */
     .menu {
         width: 100%;
         overflow-x: auto;
         padding-bottom: 0.4rem;
         gap: 0.4rem;
     }
-
     .menu li a {
         padding: 0.4rem 0.7rem;
         font-size: 0.85rem;
         white-space: nowrap;
     }
-
-    /* Thu hẹp lề khung chính (main-content) */
     .main-content {
         width: 96%;
         margin: 1rem auto;
         padding: 0 0.5rem;
     }
-
-    /* Thu nhỏ padding của Card để tiết kiệm không gian màn hình nhỏ */
     .card {
         padding: 1.2rem;
         border-radius: 14px;
         margin-bottom: 1.2rem;
     }
-
     .card h2 {
         font-size: 1.2rem;
     }
-
-    /* Ẩn bớt các đốm sáng nền (glow blobs) trên mobile để đỡ nặng hiệu ứng và tránh tràn màn hình */
     body::before, body::after {
         display: none;
     }
-
-    /* Biến bảng danh sách thành viên thành dạng cuộn ngang nếu màn hình quá nhỏ */
     .member-table {
         display: block;
         overflow-x: auto;
         white-space: nowrap;
     }
-
     .member-table th, .member-table td {
         padding: 10px 12px;
         font-size: 0.9rem;
     }
-
-    /* Footer chuyển thành xếp dọc */
     .site-footer {
         flex-direction: column;
         text-align: center;
         gap: 15px;
         padding: 20px 15px;
     }
-
     .footer-left-content {
         text-align: center;
     }
 }
-/* --- HIỆU ỨNG KÝ HIỆU TOÁN HỌC RƠI TỪ TRÊN XUỐNG (RÕ NÉT HƠN) --- */
 .math-bg-animation {
     position: fixed;
     top: 0;
@@ -359,24 +297,22 @@ body.light-mode .math-quote {
     pointer-events: none;
     z-index: -1;
 }
-
 .math-symbol {
     position: absolute;
-    color: var(--text-main); /* Đổi sang màu chữ chính của web thay vì màu mờ */
+    color: var(--text-main); 
     font-family: serif;
     font-style: italic;
-    opacity: 0.22; /* Tăng độ đậm lên để nhìn rõ hơn mà không bị chói mắt */
+    opacity: 0.22; 
     user-select: none;
     animation: fallSymbol 12s infinite linear;
 }
-
 @keyframes fallSymbol {
     0% {
         transform: translateY(-10vh) rotate(0deg) scale(0.8);
         opacity: 0;
     }
     15% {
-        opacity: 0.25; /* Rõ nét hơn ở phần giữa */
+        opacity: 0.25; 
     }
     85% {
         opacity: 0.25;
@@ -386,16 +322,12 @@ body.light-mode .math-quote {
         opacity: 0;
     }
 }
-/* --- HIỆU ỨNG CON TRỎ CHUỘT: TIA GÓC & QUỸ TÍCH LƯỢNG GIÁC --- */
 body {
     cursor: none;
 }
-
 input, textarea, select {
     cursor: text;
 }
-
-/* Điểm tâm con trỏ */
 .math-ray-dot {
     position: fixed;
     top: 0;
@@ -409,8 +341,6 @@ input, textarea, select {
     z-index: 99999;
     box-shadow: 0 0 10px var(--accent);
 }
-
-/* Vòng cung quỹ tích bao quanh */
 .math-ray-ring {
     position: fixed;
     top: 0;
@@ -427,13 +357,10 @@ input, textarea, select {
     opacity: 0.5;
     animation: rotateRing 3s linear infinite;
 }
-
 @keyframes rotateRing {
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
-
-/* Vòng phản chiếu lớn bên ngoài */
 .math-ray-pulse {
     position: fixed;
     top: 0;
@@ -448,27 +375,22 @@ input, textarea, select {
     opacity: 0.25;
     animation: pulseRing 6s linear infinite reverse;
 }
-
 @keyframes pulseRing {
     0% { transform: translate(-50%, -50%) scale(0.9) rotate(0deg); }
     50% { transform: translate(-50%, -50%) scale(1.15) rotate(180deg); }
     100% { transform: translate(-50%, -50%) scale(0.9) rotate(360deg); }
 }
-
-/* Hiệu ứng khi rê vào nút bấm / link */
 body.cursor-hover .math-ray-dot {
     background-color: #ff5722;
     box-shadow: 0 0 15px #ff5722;
     transform: translate(-50%, -50%) scale(1.5);
 }
-
 body.cursor-hover .math-ray-ring {
     border-color: #ff5722;
     width: 70px;
     height: 70px;
     opacity: 0.8;
 }
-/* --- HIỆU ỨNG CLICK BÙNG NỔ KÝ HIỆU TOÁN HỌC --- */
 .math-click-particle {
     position: fixed;
     font-size: 1rem;
@@ -480,7 +402,6 @@ body.cursor-hover .math-ray-ring {
     z-index: 100000;
     animation: mathParticleExplode 0.8s ease-out forwards;
 }
-
 @keyframes mathParticleExplode {
     0% {
         transform: translate(0, 0) scale(1) rotate(0deg);
@@ -491,7 +412,6 @@ body.cursor-hover .math-ray-ring {
         opacity: 0;
     }
 }
-/* --- NÚT BẬT/TẮT HIỆU ỨNG TRÊN MENU --- */
 .fx-menu-btn {
     background: transparent;
     color: var(--text-main);
@@ -506,18 +426,14 @@ body.cursor-hover .math-ray-ring {
     align-items: center;
     gap: 6px;
 }
-
 .fx-menu-btn:hover {
     border-color: var(--accent);
     color: var(--accent);
     transform: translateY(-1px);
 }
-
-/* TRẠNG THÁI KHI TẮT HIỆU ỨNG */
 body.fx-disabled {
     cursor: auto !important;
 }
-
 body.fx-disabled input, 
 body.fx-disabled textarea, 
 body.fx-disabled select,
@@ -525,8 +441,6 @@ body.fx-disabled a,
 body.fx-disabled button {
     cursor: pointer !important;
 }
-
-/* Ẩn toàn bộ hiệu ứng nền và con trỏ khi tắt */
 body.fx-disabled .math-bg-animation,
 body.fx-disabled .math-ray-dot,
 body.fx-disabled .math-ray-ring,

@@ -14,11 +14,9 @@
             display: flex;
             flex-direction: column;
         }
-
         .main-content {
             flex: 1; /* Giúp phần nội dung co giãn lấp đầy khoảng trống, đẩy footer xuống đáy */
         }
-
         .card-header-box {
             margin-bottom: 1.5rem;
             border-bottom: 1px solid var(--border);
@@ -123,7 +121,6 @@
         .tab-pane.active {
             display: block;
         }
-
         /* Giao diện vùng upload tùy chỉnh */
         .custom-file-upload {
             border: 2px dashed var(--border);
@@ -139,7 +136,6 @@
             border-color: var(--accent);
             background: rgba(128, 128, 128, 0.05);
         }
-
         /* Lưới hiển thị ảnh kỷ niệm */
         .gallery-grid {
             display: grid;
@@ -195,7 +191,6 @@
             background: #ef4444;
             color: #fff;
         }
-
         /* Huy hiệu trạng thái Công khai / Riêng tư */
         .badge-status {
             font-size: 0.7rem;
@@ -216,7 +211,6 @@
             color: #ef4444;
             border: 1px solid rgba(239, 68, 68, 0.2);
         }
-
         /* Checkbox chọn ảnh */
         .item-checkbox {
             position: absolute;
@@ -228,7 +222,6 @@
             z-index: 10;
             accent-color: var(--accent);
         }
-
         /* Thanh công cụ chọn hàng loạt */
         .batch-toolbar {
             display: none;
@@ -240,7 +233,6 @@
             margin-bottom: 15px;
             border: 1px solid var(--border);
         }
-
         /* Danh sách tài liệu dạng hàng */
         .resource-list {
             display: flex;
@@ -322,7 +314,6 @@
             background: #10b981;
             color: #fff;
         }
-
         .remove-preview-btn {
             background: rgba(239, 68, 68, 0.1);
             color: #ef4444;
@@ -337,7 +328,6 @@
             background: #ef4444;
             color: #fff;
         }
-
         /* Nút đăng nhập/đăng xuất trên thanh Navbar */
         .nav-auth-btn {
             background: var(--card-bg);
@@ -377,7 +367,6 @@
             background: #ef4444;
             color: #fff;
         }
-
         /* Logo lớp trên thanh Header */
         .logo div {
             display: flex;
@@ -399,7 +388,6 @@
         .header-class-logo:hover {
             transform: scale(1.08);
         }
-
         /* Footer Style */
         .site-footer {
             display: flex;
@@ -450,7 +438,6 @@
         .footer-right-logos img:hover {
             transform: scale(1.08);
         }
-
         /* Lightbox */
         #lightbox-modal {
             display: none;
@@ -491,19 +478,16 @@
             <li><button id="fx-toggle-btn" class="fx-menu-btn" onclick="toggleMathEffects()">✨ Hiệu ứng: Bật</button></li>
         </ul>
     </header>
-
     <main class="main-content">
         <section class="card">
             <div class="card-header-box">
                 <h2>Kho Góc Thành Viên</h2>
                 <p class="card-sub-info">Nơi lưu giữ hình ảnh và tài liệu học tập của tập thể 10 Toán 2</p>
             </div>
-
             <div class="sub-tabs">
                 <button class="sub-tab-btn active" onclick="switchTab('gallery')">📷 Khoảnh Khắc Kỷ Niệm</button>
                 <button class="sub-tab-btn" onclick="switchTab('resources')">📚 Tài Liệu Học Tập</button>
             </div>
-
             <div id="auth-lock" class="lock-container" style="display: none;">
                 <h3>🔒 Xác thực quản lý nội bộ</h3>
                 <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">Nhập mật khẩu lớp để mở khóa quyền đăng tải, sửa hoặc xóa nội dung.</p>
@@ -513,7 +497,6 @@
                 </div>
                 <div id="err-text" class="error-msg">Mật khẩu không chính xác. Vui lòng thử lại!</div>
             </div>
-
             <div id="pane-gallery" class="tab-pane active">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px;">
                     <div>
@@ -529,7 +512,6 @@
                         </button>
                     </div>
                 </div>
-
                 <div id="batch-toolbar-gallery" class="batch-toolbar">
                     <label style="display: flex; align-items: center; gap: 8px; font-weight: 600; cursor: pointer; color: var(--text-main); font-size: 0.9rem;">
                         <input type="checkbox" id="select-all-gallery" onchange="toggleSelectAll('gallery', this)" style="width: 18px; height: 18px; accent-color: var(--accent);"> Chọn tất cả (<span id="selected-count-gallery">0</span> đã chọn)
@@ -538,13 +520,11 @@
                         🗑️ Xóa đã chọn
                     </button>
                 </div>
-
                 <div id="empty-notice-gallery" style="padding: 25px; text-align: center; background: rgba(128,128,128,0.05); border-radius: 12px; border: 1px dashed var(--border); margin-top: 15px; color: var(--text-muted);">
                     [Chưa có ảnh kỷ niệm nào được đăng...]
                 </div>
                 <div id="image-grid" class="gallery-grid"></div>
             </div>
-
             <div id="pane-resources" class="tab-pane">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px;">
                     <div>
@@ -560,7 +540,6 @@
                         </button>
                     </div>
                 </div>
-
                 <div id="batch-toolbar-resources" class="batch-toolbar">
                     <label style="display: flex; align-items: center; gap: 8px; font-weight: 600; cursor: pointer; color: var(--text-main); font-size: 0.9rem;">
                         <input type="checkbox" id="select-all-resources" onchange="toggleSelectAll('resources', this)" style="width: 18px; height: 18px; accent-color: var(--accent);"> Chọn tất cả (<span id="selected-count-resources">0</span> đã chọn)
@@ -569,7 +548,6 @@
                         🗑️ Xóa đã chọn
                     </button>
                 </div>
-
                 <div id="empty-notice-resources" style="padding: 25px; text-align: center; background: rgba(128,128,128,0.05); border-radius: 12px; border: 1px dashed var(--border); margin-top: 15px; color: var(--text-muted);">
                     [Kho tài liệu học tập đang cập nhật...]
                 </div>
@@ -577,7 +555,6 @@
             </div>
         </section>
     </main>
-
     <footer class="site-footer">
         <div class="footer-left-content">
             <p><strong>Lớp 10 Toán 2 - K36</strong></p>
@@ -589,11 +566,9 @@
             <img src="10_t2_logo.jpeg" alt="Logo 10 Toán 2 K36" title="Bấm để phóng to logo Lớp" class="class-logo" onclick="openLightbox('10_t2_logo.jpeg')">
         </div>
     </footer>
-
     <div id="upload-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 1000; justify-content: center; align-items: center; padding: 20px;">
         <div style="background: var(--card-bg); border: 1px solid var(--border); padding: 22px; border-radius: 16px; max-width: 500px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto;">
             <h3 id="modal-title" style="color: var(--accent); margin-top: 0; margin-bottom: 12px;">📤 Đăng Nội Dung</h3>
-            
             <div style="margin-bottom: 12px;">
                 <label id="modal-file-label" style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 6px;">Chọn file:</label>
                 <input type="file" id="file-input" multiple style="display: none;" onchange="previewFiles(this)">
@@ -603,15 +578,12 @@
                     <div id="file-upload-subtext" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">Hỗ trợ chọn nhiều file</div>
                 </label>
             </div>
-
             <div id="preview-container" style="display: none; flex-direction: column; gap: 6px; margin-bottom: 15px; max-height: 140px; overflow-y: auto; padding: 6px; background: rgba(128,128,128,0.03); border-radius: 8px;">
             </div>
-
             <div style="margin-bottom: 12px;">
                 <label style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 6px;">Mô tả (Description):</label>
                 <textarea id="file-caption" placeholder="Nhập mô tả cho file..." style="width: 100%; height: 70px; background: var(--card-bg); border: 1px solid var(--border); padding: 8px; border-radius: 8px; color: var(--text-main); outline: none; resize: none;"></textarea>
             </div>
-
             <div style="margin-bottom: 20px;">
                 <label style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 6px;">Trạng thái hiển thị:</label>
                 <select id="file-visibility" style="width: 100%; background: var(--card-bg); border: 1px solid var(--border); padding: 10px; border-radius: 12px; color: var(--text-main); font-weight: 600; outline: none;">
@@ -619,14 +591,12 @@
                     <option value="private">🔒 Riêng Tư (Chỉ thành viên nội bộ thấy khi đăng nhập)</option>
                 </select>
             </div>
-
             <div style="display: flex; justify-content: flex-end; gap: 10px;">
                 <button onclick="closeUploadModal()" style="background: transparent; color: var(--text-muted); border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600;">Hủy</button>
                 <button id="submit-btn" onclick="submitFiles()" style="background: var(--accent); color: #fff; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600;">Đăng tải</button>
             </div>
         </div>
     </div>
-
     <div id="custom-confirm-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 3000; justify-content: center; align-items: center; padding: 20px;">
         <div style="background: var(--card-bg); border: 1px solid var(--border); padding: 24px; border-radius: 16px; max-width: 420px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.3); text-align: center;">
             <div style="font-size: 2.2rem; margin-bottom: 10px;">⚠️</div>
@@ -640,15 +610,12 @@
             </div>
         </div>
     </div>
-
     <div id="lightbox-modal" onclick="closeLightbox()">
         <img id="lightbox-img" src="" alt="Phóng to ảnh">
     </div>
-
     <div id="toastMessage" style="position: fixed; bottom: 20px; right: 20px; background: var(--card-bg); backdrop-filter: var(--backdrop); border: 1px solid var(--accent); color: var(--text-main); padding: 12px 20px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: translateY(100px); opacity: 0; transition: all 0.4s ease; z-index: 9999;">
         ✨ Thao tác thành công!
     </div>
-
     <script>
         const CORRECT_PASS = "10toan2k36";
         let currentActiveTab = 'gallery';
@@ -656,18 +623,14 @@
         let isSelectModeGallery = false;
         let isSelectModeResources = false;
         let pendingAction = null;
-
-        // Supabase Init
         const SUPABASE_URL = 'https://mwyjcrpwxpghieizswfa.supabase.co';
         const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_9Ow2Q57vi9ArOtQRPr3bfw_olVCoAfD';
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-
         window.addEventListener('DOMContentLoaded', () => {
             updateAuthUI();
             loadGalleryFromStorage();
             loadResourcesFromStorage();
         });
-
         function handleNavAuthClick() {
             if (localStorage.getItem('class_unlocked') === 'true') {
                 showCustomConfirm('Bạn có chắc chắn muốn đăng xuất khỏi khu vực nội bộ không?', () => {
@@ -690,18 +653,15 @@
                 }
             }
         }
-
         function handleLogin() {
             const passInput = document.getElementById('class-pass');
             const inputVal = passInput.value.trim();
             const errBox = document.getElementById('err-text');
-
             if (!inputVal) {
                 errBox.style.display = 'none';
                 passInput.focus();
                 return;
             }
-
             if (inputVal === CORRECT_PASS) {
                 localStorage.setItem('class_unlocked', 'true');
                 passInput.value = '';
@@ -713,14 +673,12 @@
                 errBox.style.display = 'block';
             }
         }
-
         function updateAuthUI() {
             const isUnlocked = localStorage.getItem('class_unlocked') === 'true';
             const authBtn = document.getElementById('nav-auth-trigger');
             const lockBox = document.getElementById('auth-lock');
             const btnUploadGallery = document.getElementById('btn-upload-gallery');
             const btnUploadResources = document.getElementById('btn-upload-resources');
-
             if (isUnlocked) {
                 if (authBtn) {
                     authBtn.className = 'nav-logout-btn';
@@ -739,15 +697,12 @@
                 if (btnUploadResources) btnUploadResources.style.display = 'none';
             }
         }
-
         function switchTab(tabName) {
             currentActiveTab = tabName;
             const btns = document.querySelectorAll('.sub-tab-btn');
             btns.forEach(b => b.classList.remove('active'));
-
             document.getElementById('pane-gallery').classList.remove('active');
             document.getElementById('pane-resources').classList.remove('active');
-
             if (tabName === 'gallery') {
                 btns[0].classList.add('active');
                 document.getElementById('pane-gallery').classList.add('active');
@@ -756,7 +711,6 @@
                 document.getElementById('pane-resources').classList.add('active');
             }
         }
-
         function toggleSelectMode(tab) {
             if (tab === 'gallery') {
                 isSelectModeGallery = !isSelectModeGallery;
@@ -786,18 +740,15 @@
                 loadResourcesFromStorage();
             }
         }
-
         function toggleSelectAll(tab, masterCheckbox) {
             const checkboxes = document.querySelectorAll(`.${tab}-checkbox`);
             checkboxes.forEach(cb => cb.checked = masterCheckbox.checked);
             updateSelectedCount(tab);
         }
-
         function updateSelectedCount(tab) {
             const checkboxes = document.querySelectorAll(`.${tab}-checkbox:checked`);
             document.getElementById(`selected-count-${tab}`).textContent = checkboxes.length;
         }
-
         function openUploadModal(tab) {
             if (localStorage.getItem('class_unlocked') !== 'true') {
                 showToast('Vui lòng đăng nhập mật khẩu nội bộ để sử dụng tính năng này!');
@@ -807,7 +758,6 @@
             const fileInput = document.getElementById('file-input');
             const subtext = document.getElementById('file-upload-subtext');
             const title = document.getElementById('modal-title');
-
             if (tab === 'gallery') {
                 title.textContent = '📤 Đăng Ảnh Kỷ Niệm';
                 fileInput.accept = 'image/*';
@@ -817,12 +767,10 @@
                 fileInput.accept = '.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.zip,.rar';
                 subtext.textContent = 'Không nhận file ảnh (chỉ nhận PDF, Word, Excel, PPT...)';
             }
-
             document.getElementById('file-visibility').value = 'public';
             document.getElementById('submit-btn').textContent = 'Đăng tải';
             document.getElementById('upload-modal').style.display = 'flex';
         }
-
         function closeUploadModal() {
             document.getElementById('upload-modal').style.display = 'none';
             document.getElementById('file-upload-text').textContent = 'Bấm vào đây để chọn file';
@@ -833,11 +781,9 @@
             document.getElementById('preview-container').innerHTML = '';
             selectedFilesArray = [];
         }
-
         function previewFiles(input) {
             const previewContainer = document.getElementById('preview-container');
             const textEl = document.getElementById('file-upload-text');
-            
             if (input.files.length > 0) {
                 const files = Array.from(input.files);
                 if (currentActiveTab === 'gallery') {
@@ -855,14 +801,11 @@
                         return;
                     }
                 }
-
                 selectedFilesArray = files;
                 textEl.textContent = `Đã chọn ${selectedFilesArray.length} file`;
                 textEl.style.color = 'var(--accent)';
-                
                 previewContainer.style.display = 'flex';
                 previewContainer.innerHTML = '';
-
                 selectedFilesArray.forEach((file, index) => {
                     const div = document.createElement('div');
                     div.style.display = 'flex';
@@ -872,7 +815,6 @@
                     div.style.border = '1px solid var(--border)';
                     div.style.padding = '6px 10px';
                     div.style.borderRadius = '6px';
-                    
                     div.innerHTML = `
                         <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 320px;">📄 ${file.name}</span>
                         <button type="button" class="remove-preview-btn" onclick="removePreviewItem(${index})">Xóa</button>
@@ -881,12 +823,10 @@
                 });
             }
         }
-
         function removePreviewItem(index) {
             selectedFilesArray.splice(index, 1);
             const previewContainer = document.getElementById('preview-container');
             const textEl = document.getElementById('file-upload-text');
-
             if (selectedFilesArray.length === 0) {
                 previewContainer.style.display = 'none';
                 previewContainer.innerHTML = '';
@@ -905,7 +845,6 @@
                     div.style.border = '1px solid var(--border)';
                     div.style.padding = '6px 10px';
                     div.style.borderRadius = '6px';
-                    
                     div.innerHTML = `
                         <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 320px;">📄 ${item.name}</span>
                         <button type="button" class="remove-preview-btn" onclick="removePreviewItem(${idx})">Xóa</button>
@@ -914,22 +853,18 @@
                 });
             }
         }
-
         async function submitFiles() {
             if (localStorage.getItem('class_unlocked') !== 'true') {
                 showToast('Vui lòng đăng nhập!');
                 return;
             }
-
             const fileInput = document.getElementById('file-input');
             const captionInput = document.getElementById('file-caption');
             const visibility = document.getElementById('file-visibility').value;
-
             if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
                 showToast('Vui lòng chọn tệp tin!');
                 return;
             }
-
             const file = fileInput.files[0];
             const originalFileName = file.name;
             const fileExt = originalFileName.split('.').pop().toLowerCase();
@@ -937,22 +872,16 @@
             const isImage = currentActiveTab === 'gallery';
             const folder = isImage ? 'gallery' : 'resources';
             const filePath = `${folder}/${uniqueStorageName}`;
-
             try {
                 const { error: uploadError } = await _supabase.storage
                     .from('gallery_images')
                     .upload(filePath, file);
-
                 if (uploadError) throw uploadError;
-
                 const { data: publicUrlData } = _supabase.storage
                     .from('gallery_images')
                     .getPublicUrl(filePath);
-
                 const fileUrl = publicUrlData.publicUrl;
                 const userDescription = captionInput ? captionInput.value.trim() : '';
-
-                // Insert vào table mới: gallery
                 const { error: dbError } = await _supabase
                     .from('gallery')
                     .insert([
@@ -966,42 +895,33 @@
                             visibility: visibility
                         }
                     ]);
-
                 if (dbError) throw dbError;
-
                 showToast('Tải lên thành công!');
                 closeUploadModal();
                 loadGalleryFromStorage();
                 loadResourcesFromStorage();
-
             } catch (error) {
                 console.error('Lỗi:', error.message);
                 showToast('Có lỗi xảy ra: ' + error.message);
             }
         }
-
         async function loadGalleryFromStorage() {
             const gridEl = document.getElementById('image-grid');
             const noticeEl = document.getElementById('empty-notice-gallery');
             const selectBtn = document.getElementById('gallery-select-mode-btn');
             const batchToolbar = document.getElementById('batch-toolbar-gallery');
             const isUnlocked = localStorage.getItem('class_unlocked') === 'true';
-
             try {
                 let query = _supabase.from('gallery').select('*').not('image_url', 'is', null);
-                
                 if (!isUnlocked) {
                     query = query.eq('visibility', 'public');
                 }
-
                 const { data: images, error } = await query;
                 if (error) throw error;
-
                 gridEl.innerHTML = '';
                 if (images && images.length > 0) {
                     noticeEl.style.display = 'none';
                     if (selectBtn && isUnlocked) selectBtn.style.display = 'inline-block';
-                    
                     images.forEach((item) => {
                         const card = document.createElement('div');
                         card.className = 'gallery-item';
@@ -1011,15 +931,12 @@
                                 <button class="delete-btn" onclick="deleteSupabaseItem(${item.id}, 'gallery')">Xóa</button>
                             </div>
                         ` : '';
-
                         let badgeHtml = '';
                         if (isUnlocked) {
                             badgeHtml = item.visibility === 'private' ? `<span class="badge-status badge-private">Riêng tư</span>` : `<span class="badge-status badge-public">Công khai</span>`;
                         }
-
                         const displayTitle = item.title || 'Ảnh kỷ niệm';
                         const displayDesc = item.description ? ` - ${item.description}` : '';
-
                         card.innerHTML = `
                             ${checkboxHtml}
                             <img src="${item.image_url}" alt="Kỷ niệm lớp" onclick="openLightbox('${item.image_url}')">
@@ -1043,47 +960,37 @@
                 console.error('Lỗi tải gallery:', err.message);
             }
         }
-
         async function loadResourcesFromStorage() {
             const containerEl = document.getElementById('resource-list-container');
             const noticeEl = document.getElementById('empty-notice-resources');
             const selectBtn = document.getElementById('resource-select-mode-btn');
             const batchToolbar = document.getElementById('batch-toolbar-resources');
             const isUnlocked = localStorage.getItem('class_unlocked') === 'true';
-
             try {
                 let query = _supabase.from('gallery').select('*').or('image_url.is.null,image_url.eq.""');
-                
                 if (!isUnlocked) {
                     query = query.eq('visibility', 'public');
                 }
-
                 const { data: resources, error } = await query;
                 if (error) throw error;
-
                 containerEl.innerHTML = '';
                 if (resources && resources.length > 0) {
                     noticeEl.style.display = 'none';
                     if (selectBtn && isUnlocked) selectBtn.style.display = 'inline-block';
-                    
                     resources.forEach((item) => {
                         const itemEl = document.createElement('div');
                         itemEl.className = 'resource-item';
                         let checkboxHtml = (isSelectModeResources && isUnlocked) ? `<input type="checkbox" class="resources-checkbox item-checkbox" style="position:static; margin-right:8px;" data-id="${item.id}" onchange="updateSelectedCount('resources')">` : '';
-
                         let badgeHtml = '';
                         if (isUnlocked) {
                             badgeHtml = item.visibility === 'private' ? `<span class="badge-status badge-private">Riêng tư</span>` : `<span class="badge-status badge-public">Công khai</span>`;
                         }
-
                         let adminActionsHtml = isUnlocked ? `
                             <button class="action-btn-sm delete-btn" onclick="deleteSupabaseItem(${item.id}, 'resources')">Xóa</button>
                         ` : '';
-
                         const fileLink = item.link || '#';
                         const displayTitle = item.title || 'Tài liệu học tập';
                         const displayDesc = item.description ? `<br><span style="font-size: 0.75rem; color: var(--text-muted);">${escapeHtml(item.description)}</span>` : '';
-
                         itemEl.innerHTML = `
                             <div class="resource-left">
                                 ${checkboxHtml}
@@ -1112,7 +1019,6 @@
                 console.error('Lỗi tải resources:', err.message);
             }
         }
-
         async function deleteSupabaseItem(id, tab) {
             if (localStorage.getItem('class_unlocked') !== 'true') return;
             showCustomConfirm('Bạn có chắc chắn muốn xóa vĩnh viễn mục này không?', async () => {
@@ -1126,7 +1032,6 @@
                 }
             });
         }
-
         async function confirmDeleteSelected(tab) {
             if (localStorage.getItem('class_unlocked') !== 'true') return;
             const checkboxes = document.querySelectorAll(`.${tab}-checkbox:checked`);
@@ -1134,15 +1039,12 @@
                 showToast('Vui lòng chọn ít nhất một mục để xóa.');
                 return;
             }
-
             showCustomConfirm(`Bạn có chắc chắn muốn xóa vĩnh viễn ${checkboxes.length} mục đã chọn không?`, async () => {
                 try {
                     const idsToDelete = Array.from(checkboxes).map(cb => parseInt(cb.getAttribute('data-id')));
                     const { error } = await _supabase.from('gallery').delete().in('id', idsToDelete);
                     if (error) throw error;
-
                     showToast('Đã xóa thành công các mục đã chọn!');
-
                     if (tab === 'gallery') {
                         isSelectModeGallery = false;
                         document.getElementById('gallery-select-mode-btn').style.background = 'transparent';
@@ -1165,37 +1067,30 @@
                 }
             });
         }
-
         function showCustomConfirm(message, callback) {
             document.getElementById('confirm-msg').textContent = message;
             pendingAction = callback;
             document.getElementById('custom-confirm-modal').style.display = 'flex';
         }
-
         function closeConfirmModal() {
             document.getElementById('custom-confirm-modal').style.display = 'none';
             pendingAction = null;
         }
-
         document.getElementById('confirm-yes-btn').addEventListener('click', () => {
             if (typeof pendingAction === 'function') pendingAction();
             closeConfirmModal();
         });
-
         function openLightbox(url) {
             const lightbox = document.getElementById('lightbox-modal');
             document.getElementById('lightbox-img').src = url;
             lightbox.style.display = 'flex';
         }
-
         function closeLightbox() {
             document.getElementById('lightbox-modal').style.display = 'none';
         }
-
         function escapeHtml(text) {
             return (text || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
-
         function showToast(message = "✨ Thao tác thành công!") {
             let toast = document.getElementById('toastMessage');
             if (!toast) return;
@@ -1209,8 +1104,6 @@
                 toast.style.opacity = '0';
             }, 3000);
         }
-
-        // Theme Toggle
         const themeToggleBtn = document.getElementById('theme-toggle');
         const body = document.body;
         if (localStorage.getItem('theme') === 'light') {
@@ -1229,12 +1122,9 @@
                 }
             });
         }
-
-        // Math Effects Toggle
         function toggleMathEffects() {
             const isCurrentlyDisabled = document.body.classList.contains('fx-disabled');
             const fxBtn = document.getElementById('fx-toggle-btn');
-
             if (isCurrentlyDisabled) {
                 document.body.classList.remove('fx-disabled');
                 if (fxBtn) fxBtn.innerHTML = '✨ Hiệu ứng: Bật';
@@ -1245,7 +1135,6 @@
                 localStorage.setItem('math_fx_enabled', 'false');
             }
         }
-
         window.addEventListener('DOMContentLoaded', () => {
             const fxEnabled = localStorage.getItem('math_fx_enabled') !== 'false';
             const fxBtn = document.getElementById('fx-toggle-btn');
