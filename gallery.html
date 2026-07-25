@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>10 Toán 2 K36 - Tư Liệu & Kỷ Niệm</title>
@@ -1285,6 +1286,73 @@
         }, 3000);
     }
 </script>
+<script>
+// 1. Khởi tạo kết nối Supabase
+const SUPABASE_URL = 'https://mwyjcrpwxpghieizswfa.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_9Ow2Q57vi9ArOtQRPr3bfw_olVCoAfD';
 
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+// 2. Bắt sự kiện khi bấm nút đăng tải
+const submitBtn = document.getElementById('submit-btn');
+if (submitBtn) {
+    submitBtn.addEventListener('click', async () => {
+        const fileInput = document.getElementById('file-input');
+        const captionInput = document.getElementById('file-caption');
+
+        if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+            showToast('Vui lòng chọn tệp tin!');
+            return;
+        }
+
+        const file = fileInput.files[0];
+        const fileExt = file.name.split('.').pop().toLowerCase();
+        const fileName = `${Date.now()}_${Math.random().toString(36).substring(2)}.${fileExt}`;
+        
+        // Tự động phân loại: nếu là ảnh thì vào thư mục gallery, ngược lại là tài liệu
+        const isImage = ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExt);
+        const folder = isImage ? 'gallery' : 'resources';
+        const filePath = `${folder}/${fileName}`;
+
+        try {
+            // Đẩy file lên Supabase Storage bucket 'gallery_images'
+            const { error: uploadError } = await _supabase.storage
+                .from('gallery_images')
+                .upload(filePath, file);
+
+            if (uploadError) throw uploadError;
+
+            // Lấy đường dẫn public của file
+            const { data: publicUrlData } = _supabase.storage
+                .from('gallery_images')
+                .getPublicUrl(filePath);
+
+            const fileUrl = publicUrlData.publicUrl;
+
+            // Lưu thông tin vào database
+            const defaultTitle = isImage ? 'Ảnh kỷ niệm Gallery' : 'Tài liệu học tập lớp';
+            const { error: dbError } = await _supabase
+                .from('achievements')
+                .insert([
+                    { 
+                        id: Date.now(), // Thêm dòng này vào đây
+                        title: captionInput && captionInput.value.trim() !== '' ? captionInput.value : defaultTitle, 
+                        student_name: 'Thành viên 10 Toán 2',
+                        image_url: fileUrl 
+                    }
+                ]);
+
+            if (dbError) throw dbError;
+
+            showToast('Tải lên thành công!');
+            location.reload();
+
+        } catch (error) {
+            console.error('Lỗi:', error.message);
+            showToast('Có lỗi xảy ra: ' + error.message);
+        }
+    });
+}
+</script>
 </body>
 </html>

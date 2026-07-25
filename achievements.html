@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chuyên Toán K36 - Bảng Vàng</title>
@@ -177,12 +178,12 @@
             overflow: hidden;
             background: rgba(128,128,128,0.05);
             position: relative;
+            cursor: zoom-in;
         }
         .achievement-img-wrap img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            cursor: zoom-in;
             transition: transform 0.3s;
         }
         .achievement-img-wrap img:hover {
@@ -500,14 +501,6 @@
                 <textarea id="ach-desc" placeholder="Thông tin thêm về kỳ thi, cấp tổ chức..." style="width: 100%; height: 70px; background: var(--card-bg); border: 1px solid var(--border); padding: 8px; border-radius: 8px; color: var(--text-main); outline: none; resize: none; box-sizing: border-box;"></textarea>
             </div>
 
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 6px;">Trạng thái hiển thị:</label>
-                <select id="ach-visibility" style="width: 100%; background: var(--card-bg); border: 1px solid var(--border); padding: 10px; border-radius: 12px; color: var(--text-main); font-weight: 600; outline: none; box-sizing: border-box;">
-                    <option value="public">🌐 Công Khai (Mọi người đều xem được)</option>
-                    <option value="private">🔒 Riêng Tư (Chỉ thành viên nội bộ thấy khi đăng nhập)</option>
-                </select>
-            </div>
-
             <div style="display: flex; justify-content: flex-end; gap: 10px;">
                 <button onclick="closeUploadModal()" style="flex: 1; background: transparent; color: var(--text-muted); border: 1px solid var(--border); padding: 10px; border-radius: 10px; cursor: pointer; font-weight: 600;">Hủy</button>
                 <button onclick="submitAchievement()" style="flex: 1; background: var(--accent); color: #fff; border: none; padding: 10px; border-radius: 10px; cursor: pointer; font-weight: 600;">Lưu thành tích</button>
@@ -536,9 +529,14 @@
     <script>
         const CORRECT_PASS = "10toan2k36";
         let selectedFileObj = null;
-        let editingIndex = null;
+        let editingId = null;
         let isSelectMode = false;
         let pendingAction = null;
+
+        // 1. Khởi tạo kết nối Supabase
+        const SUPABASE_URL = 'https://mwyjcrpwxpghieizswfa.supabase.co';
+        const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_9Ow2Q57vi9ArOtQRPr3bfw_olVCoAfD';
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
         window.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem('class_unlocked') === 'true') {
@@ -633,13 +631,12 @@
 
         function openUploadModal() {
             if (localStorage.getItem('class_unlocked') !== 'true') return;
-            editingIndex = null;
+            editingId = null;
             document.getElementById('modal-title').textContent = '🏆 Thêm Thành Tích Mới';
             document.getElementById('ach-student-name').value = '';
             document.getElementById('ach-title').value = '';
             document.getElementById('ach-link').value = '';
             document.getElementById('ach-desc').value = '';
-            document.getElementById('ach-visibility').value = 'public';
             document.getElementById('file-input').value = '';
             document.getElementById('file-upload-text').textContent = 'Bấm vào đây để chọn ảnh';
             document.getElementById('preview-container').style.display = 'none';
@@ -648,36 +645,46 @@
             document.getElementById('upload-modal').style.display = 'flex';
         }
 
-        function openEditModal(index) {
+        async function editAchievement(id) {
             if (localStorage.getItem('class_unlocked') !== 'true') return;
-            editingIndex = index;
-            const items = JSON.parse(localStorage.getItem('class_achievements') || '[]');
-            const item = items[index];
+            try {
+                const { data, error } = await _supabase
+                    .from('achievements')
+                    .select('*')
+                    .eq('id', id)
+                    .single();
 
-            document.getElementById('modal-title').textContent = '✏️ Chỉnh Sửa Thành Tích';
-            document.getElementById('ach-student-name').value = item.studentName || '';
-            document.getElementById('ach-title').value = item.title || '';
-            document.getElementById('ach-link').value = item.link || '';
-            document.getElementById('ach-desc').value = item.desc || '';
-            document.getElementById('ach-visibility').value = item.visibility || 'public';
-            
-            selectedFileObj = { url: item.url, isExisting: true };
-            const previewContainer = document.getElementById('preview-container');
-            document.getElementById('file-upload-text').textContent = 'Đang giữ ảnh hiện tại';
-            previewContainer.style.display = 'block';
-            previewContainer.innerHTML = `
-                <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-main);">✓ Đã có ảnh sẵn sàng</span>
-                    <button type="button" class="remove-preview-btn" onclick="removePreview()">Đổi ảnh khác</button>
-                </div>
-            `;
-            document.getElementById('upload-modal').style.display = 'flex';
+                if (error) throw error;
+                if (!data) return;
+
+                editingId = data.id;
+                document.getElementById('modal-title').textContent = '✏️ Chỉnh Sửa Thành Tích';
+                document.getElementById('ach-student-name').value = data.student_name || '';
+                document.getElementById('ach-title').value = data.title || '';
+                document.getElementById('ach-link').value = data.link || '';
+                document.getElementById('ach-desc').value = data.description || '';
+                
+                selectedFileObj = { url: data.image_url, isExisting: true };
+                const previewContainer = document.getElementById('preview-container');
+                document.getElementById('file-upload-text').textContent = 'Đang giữ ảnh hiện tại';
+                previewContainer.style.display = 'block';
+                previewContainer.innerHTML = `
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-main);">✓ Đã có ảnh sẵn sàng</span>
+                        <button type="button" class="remove-preview-btn" onclick="removePreview()">Đổi ảnh khác</button>
+                    </div>
+                `;
+                document.getElementById('upload-modal').style.display = 'flex';
+            } catch (err) {
+                console.error('Lỗi lấy thông tin sửa:', err);
+                showToast('Không thể tải thông tin thành tích.');
+            }
         }
 
         function closeUploadModal() {
             document.getElementById('upload-modal').style.display = 'none';
             selectedFileObj = null;
-            editingIndex = null;
+            editingId = null;
         }
 
         function previewFile(input) {
@@ -709,14 +716,13 @@
             document.getElementById('preview-container').innerHTML = '';
         }
 
-        function submitAchievement() {
+        async function submitAchievement() {
             if (localStorage.getItem('class_unlocked') !== 'true') return;
 
             const studentName = document.getElementById('ach-student-name').value.trim();
             const title = document.getElementById('ach-title').value.trim();
             const link = document.getElementById('ach-link').value.trim();
             const desc = document.getElementById('ach-desc').value.trim();
-            const visibility = document.getElementById('ach-visibility').value;
 
             if (!studentName || !title) {
                 showToast('Vui lòng điền đầy đủ tên học sinh và tên giải thưởng.');
@@ -728,90 +734,124 @@
                 return;
             }
 
-            let items = JSON.parse(localStorage.getItem('class_achievements') || '[]');
+            try {
+                let fileUrl = '';
+                if (selectedFileObj.isExisting) {
+                    fileUrl = selectedFileObj.url;
+                } else {
+                    const file = selectedFileObj;
+                    const fileExt = file.name.split('.').pop().toLowerCase();
+                    const fileName = `achievement_${Date.now()}_${Math.random().toString(36).substring(2)}.${fileExt}`;
+                    const filePath = `achievements/${fileName}`;
 
-            if (selectedFileObj.isExisting) {
-                saveData(items, selectedFileObj.url, studentName, title, link, desc, visibility);
-            } else {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    saveData(items, e.target.result, studentName, title, link, desc, visibility);
-                };
-                reader.readAsDataURL(selectedFileObj);
+                    const { error: uploadError } = await _supabase.storage
+                        .from('gallery_images')
+                        .upload(filePath, file);
+
+                    if (uploadError) throw uploadError;
+
+                    const { data: publicUrlData } = _supabase.storage
+                        .from('gallery_images')
+                        .getPublicUrl(filePath);
+
+                    fileUrl = publicUrlData.publicUrl;
+                }
+
+                if (editingId !== null) {
+                    const { error: updateError } = await _supabase
+                        .from('achievements')
+                        .update({
+                            student_name: studentName,
+                            title: title,
+                            link: link,
+                            description: desc,
+                            image_url: fileUrl
+                        })
+                        .eq('id', editingId);
+
+                    if (updateError) throw updateError;
+                    showToast('Cập nhật thành tích thành công!');
+                } else {
+                    const { error: dbError } = await _supabase
+                        .from('achievements')
+                        .insert([
+                            { 
+                                id: Date.now(), 
+                                student_name: studentName,
+                                title: title,
+                                link: link,
+                                description: desc,
+                                image_url: fileUrl
+                            }
+                        ]);
+
+                    if (dbError) throw dbError;
+                    showToast('Thêm thành tích thành công!');
+                }
+
+                closeUploadModal();
+                loadAchievementsFromStorage();
+
+            } catch (error) {
+                console.error('Lỗi:', error.message);
+                showToast('Có lỗi xảy ra: ' + error.message);
             }
         }
 
-        function saveData(items, imageUrl, studentName, title, link, desc, visibility) {
-            const dataObj = {
-                url: imageUrl,
-                studentName: studentName,
-                title: title,
-                link: link,
-                desc: desc,
-                visibility: visibility
-            };
-
-            if (editingIndex !== null && editingIndex >= 0) {
-                items[editingIndex] = dataObj;
-            } else {
-                items.push(dataObj);
-            }
-
-            localStorage.setItem('class_achievements', JSON.stringify(items));
-            closeUploadModal();
-            loadAchievementsFromStorage();
-        }
-
-        function loadAchievementsFromStorage() {
-            const allItems = JSON.parse(localStorage.getItem('class_achievements') || '[]');
-            const gridEl = document.getElementById('achievement-grid');
-            const noticeEl = document.getElementById('empty-notice');
+        async function loadAchievementsFromStorage() {
+            const container = document.getElementById('achievement-grid');
+            const emptyNotice = document.getElementById('empty-notice');
             const selectBtn = document.getElementById('select-mode-btn');
             const batchToolbar = document.getElementById('batch-toolbar');
-            const isUnlocked = localStorage.getItem('class_unlocked') === 'true';
+            if (!container) return;
 
-            const items = allItems.filter(item => item.visibility !== 'private' || isUnlocked);
+            try {
+                const { data, error } = await _supabase
+                    .from('achievements')
+                    .select('*')
+                    .order('id', { ascending: false });
 
-            gridEl.innerHTML = '';
-            if (items.length > 0) {
-                noticeEl.style.display = 'none';
+                if (error) throw error;
+
+                if (!data || data.length === 0) {
+                    container.innerHTML = '';
+                    if (emptyNotice) emptyNotice.style.display = 'block';
+                    if (selectBtn) selectBtn.style.display = 'none';
+                    if (batchToolbar) batchToolbar.style.display = 'none';
+                    isSelectMode = false;
+                    return;
+                }
+
+                if (emptyNotice) emptyNotice.style.display = 'none';
+                const isUnlocked = localStorage.getItem('class_unlocked') === 'true';
                 if (selectBtn && isUnlocked) selectBtn.style.display = 'inline-block';
 
-                items.forEach((item, index) => {
-                    const realIndex = allItems.indexOf(item);
+                container.innerHTML = '';
+                data.forEach((item) => {
                     const card = document.createElement('div');
                     card.className = 'achievement-card';
 
-                    let checkboxHtml = (isSelectMode && isUnlocked) ? `<input type="checkbox" class="achievement-checkbox item-checkbox" data-index="${realIndex}" onchange="updateSelectedCount()">` : '';
+                    let checkboxHtml = (isSelectMode && isUnlocked) ? `<input type="checkbox" class="achievement-checkbox item-checkbox" data-id="${item.id}" onchange="updateSelectedCount()">` : '';
                     let actionButtonsHtml = isUnlocked ? `
                         <div class="action-btns">
-                            <button class="edit-btn" onclick="openEditModal(${realIndex})">Sửa</button>
-                            <button class="delete-btn" onclick="deleteOneItem(${realIndex})">Xóa</button>
+                            <button class="edit-btn" onclick="editAchievement(${item.id})">Sửa</button>
+                            <button class="delete-btn" onclick="deleteOneItem(${item.id})">Xóa</button>
                         </div>
                     ` : '';
-
-                    let badgeHtml = '';
-                    if (isUnlocked) {
-                        if (item.visibility === 'private') {
-                            badgeHtml = `<span class="badge-status badge-private">Riêng tư</span>`;
-                        } else {
-                            badgeHtml = `<span class="badge-status badge-public">Công khai</span>`;
-                        }
-                    }
 
                     let newsLinkHtml = item.link ? `<a href="${item.link}" target="_blank" style="display: inline-block; margin-top: 8px; margin-bottom: 8px; background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.2); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; text-decoration: none;">📰 Xem bài báo gốc</a>` : '';
 
                     card.innerHTML = `
                         ${checkboxHtml}
-                        <div class="achievement-img-wrap">
-                            <img src="${item.url}" alt="Thành tích" onclick="openLightbox('${item.url}')">
+                        <div class="achievement-img-wrap" onclick="openLightbox('${item.image_url}')">
+                            ${item.image_url ? `<img src="${item.image_url}" alt="Thành tích">` : ''}
                         </div>
                         <div class="achievement-content">
                             <div>
-                                <div style="font-weight: 700; color: var(--text-main); font-size: 1rem; margin-bottom: 4px;">${escapeHtml(item.studentName)} ${badgeHtml}</div>
+                                <div style="font-weight: 700; color: var(--text-main); font-size: 1rem; margin-bottom: 4px;">${escapeHtml(item.student_name)}</div>
                                 <div style="font-weight: 600; color: var(--accent); font-size: 0.9rem; margin-bottom: 6px;">🏅 ${escapeHtml(item.title)}</div>
                                 ${newsLinkHtml}
-                                <div style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.4; word-break: break-word;">${escapeHtml(item.desc || 'Không có mô tả thêm.')}</div>
+                                <div style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.4; word-break: break-word;">${escapeHtml(item.description || 'Không có mô tả thêm.')}</div>
                             </div>
                             <div class="achievement-footer">
                                 <span style="color: var(--text-muted);">Chuyên Toán K36</span>
@@ -819,23 +859,29 @@
                             </div>
                         </div>
                     `;
-                    gridEl.appendChild(card);
+                    container.appendChild(card);
                 });
-            } else {
-                noticeEl.style.display = 'block';
-                if (selectBtn) selectBtn.style.display = 'none';
-                if (batchToolbar) batchToolbar.style.display = 'none';
-                isSelectMode = false;
+            } catch (err) {
+                console.error('Lỗi tải dữ liệu:', err);
             }
         }
 
-        function deleteOneItem(index) {
+        function deleteOneItem(id) {
             if (localStorage.getItem('class_unlocked') !== 'true') return;
-            showCustomConfirm('Bạn có chắc chắn muốn xóa thành tích này không?', () => {
-                let items = JSON.parse(localStorage.getItem('class_achievements') || '[]');
-                items.splice(index, 1);
-                localStorage.setItem('class_achievements', JSON.stringify(items));
-                loadAchievementsFromStorage();
+            showCustomConfirm('Bạn có chắc chắn muốn xóa thành tích này không?', async () => {
+                try {
+                    const { error } = await _supabase
+                        .from('achievements')
+                        .delete()
+                        .eq('id', id);
+
+                    if (error) throw error;
+                    showToast('Đã xóa thành công!');
+                    loadAchievementsFromStorage();
+                } catch (err) {
+                    console.error('Lỗi xóa:', err);
+                    showToast('Không thể xóa mục này.');
+                }
             });
         }
 
@@ -847,20 +893,30 @@
                 return;
             }
 
-            showCustomConfirm(`Bạn có chắc chắn muốn xóa vĩnh viễn ${checkboxes.length} mục đã chọn không?`, () => {
-                let items = JSON.parse(localStorage.getItem('class_achievements') || '[]');
-                const indicesToDelete = Array.from(checkboxes).map(cb => parseInt(cb.getAttribute('data-index'))).sort((a, b) => b - a);
-                
-                indicesToDelete.forEach(idx => items.splice(idx, 1));
-                localStorage.setItem('class_achievements', JSON.stringify(items));
+            showCustomConfirm(`Bạn có chắc chắn muốn xóa vĩnh viễn ${checkboxes.length} mục đã chọn không?`, async () => {
+                try {
+                    const idsToDelete = Array.from(checkboxes).map(cb => parseInt(cb.getAttribute('data-id')));
+                    
+                    const { error } = await _supabase
+                        .from('achievements')
+                        .delete()
+                        .in('id', idsToDelete);
 
-                isSelectMode = false;
-                document.getElementById('select-mode-btn').style.background = 'transparent';
-                document.getElementById('select-mode-btn').style.color = 'var(--accent)';
-                document.getElementById('select-mode-btn').textContent = '+ Chọn';
-                document.getElementById('batch-toolbar').style.display = 'none';
-                document.getElementById('select-all').checked = false;
-                loadAchievementsFromStorage();
+                    if (error) throw error;
+
+                    isSelectMode = false;
+                    document.getElementById('select-mode-btn').style.background = 'transparent';
+                    document.getElementById('select-mode-btn').style.color = 'var(--accent)';
+                    document.getElementById('select-mode-btn').textContent = '+ Chọn';
+                    document.getElementById('batch-toolbar').style.display = 'none';
+                    document.getElementById('select-all').checked = false;
+                    
+                    showToast('Đã xóa các mục đã chọn!');
+                    loadAchievementsFromStorage();
+                } catch (err) {
+                    console.error('Lỗi xóa hàng loạt:', err);
+                    showToast('Không thể xóa các mục đã chọn.');
+                }
             });
         }
 
@@ -881,6 +937,7 @@
         });
 
         function openLightbox(url) {
+            if (!url) return;
             document.getElementById('lightbox-img').src = url;
             document.getElementById('lightbox-modal').style.display = 'flex';
         }
@@ -917,35 +974,33 @@
     </script>
     <script src="js/animation.js"></script>
 
-<!-- Hộp thông báo nổi (Toast Notification) -->
-<div id="toastMessage" style="position: fixed; bottom: 20px; right: 20px; background: var(--card-bg); backdrop-filter: var(--backdrop); border: 1px solid var(--accent); color: var(--text-main); padding: 12px 20px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: translateY(100px); opacity: 0; transition: all 0.4s ease; z-index: 9999;">
-    ✨ Thao tác thành công!
-</div>
+    <!-- Hộp thông báo nổi (Toast Notification) -->
+    <div id="toastMessage" style="position: fixed; bottom: 20px; right: 20px; background: var(--card-bg); backdrop-filter: var(--backdrop); border: 1px solid var(--accent); color: var(--text-main); padding: 12px 20px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: translateY(100px); opacity: 0; transition: all 0.4s ease; z-index: 9999;">
+        ✨ Thao tác thành công!
+    </div>
 
-<script>
-    function showToast(message = "✨ Thao tác thành công!") {
-        let toast = document.getElementById('toastMessage');
-        if (!toast) {
-            toast = document.createElement('div');
-            toast.id = 'toastMessage';
-            toast.style.cssText = "position: fixed; bottom: 20px; right: 20px; background: var(--card-bg); backdrop-filter: var(--backdrop); border: 1px solid var(--accent); color: var(--text-main); padding: 12px 20px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: translateY(100px); opacity: 0; transition: all 0.4s ease; z-index: 9999;";
-            document.body.appendChild(toast);
+    <script>
+        function showToast(message = "✨ Thao tác thành công!") {
+            let toast = document.getElementById('toastMessage');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'toastMessage';
+                toast.style.cssText = "position: fixed; bottom: 20px; right: 20px; background: var(--card-bg); backdrop-filter: var(--backdrop); border: 1px solid var(--accent); color: var(--text-main); padding: 12px 20px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: translateY(100px); opacity: 0; transition: all 0.4s ease; z-index: 9999;";
+                document.body.appendChild(toast);
+            }
+            if (typeof message === 'object') {
+                message = JSON.stringify(message);
+            }
+            toast.innerText = message;
+            setTimeout(() => {
+                toast.style.transform = 'translateY(0)';
+                toast.style.opacity = '1';
+            }, 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateY(100px)';
+                toast.style.opacity = '0';
+            }, 3000);
         }
-        // Nếu truyền vào đối tượng hoặc chuỗi, lấy text hiển thị
-        if (typeof message === 'object') {
-            message = JSON.stringify(message);
-        }
-        toast.innerText = message;
-        setTimeout(() => {
-            toast.style.transform = 'translateY(0)';
-            toast.style.opacity = '1';
-        }, 100);
-        setTimeout(() => {
-            toast.style.transform = 'translateY(100px)';
-            toast.style.opacity = '0';
-        }, 3000);
-    }
-</script>
-
+    </script>
 </body>
 </html>
