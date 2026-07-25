@@ -7,7 +7,6 @@
     <title>10 Toán 2 K36 - Tư Liệu & Kỷ Niệm</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Cấu trúc Sticky Footer cho toàn trang */
         html, body {
             height: 100%;
             margin: 0;
@@ -15,7 +14,7 @@
             flex-direction: column;
         }
         .main-content {
-            flex: 1; /* Giúp phần nội dung co giãn lấp đầy khoảng trống, đẩy footer xuống đáy */
+            flex: 1; 
         }
         .card-header-box {
             margin-bottom: 1.5rem;
@@ -35,7 +34,6 @@
             font-size: 0.9rem;
             color: var(--text-muted);
         }
-        /* Tab điều hướng phụ */
         .sub-tabs {
             display: flex;
             gap: 10px;
@@ -62,7 +60,6 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             border: 1px solid var(--border);
         }
-        /* Khu vực đăng nhập bảo mật tài liệu */
         .lock-container {
             text-align: center;
             padding: 30px 20px;
@@ -121,7 +118,6 @@
         .tab-pane.active {
             display: block;
         }
-        /* Giao diện vùng upload tùy chỉnh */
         .custom-file-upload {
             border: 2px dashed var(--border);
             background: rgba(128, 128, 128, 0.02);
@@ -136,7 +132,6 @@
             border-color: var(--accent);
             background: rgba(128, 128, 128, 0.05);
         }
-        /* Lưới hiển thị ảnh kỷ niệm */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -191,7 +186,6 @@
             background: #ef4444;
             color: #fff;
         }
-        /* Huy hiệu trạng thái Công khai / Riêng tư */
         .badge-status {
             font-size: 0.7rem;
             padding: 2px 6px;
@@ -211,7 +205,6 @@
             color: #ef4444;
             border: 1px solid rgba(239, 68, 68, 0.2);
         }
-        /* Checkbox chọn ảnh */
         .item-checkbox {
             position: absolute;
             top: 10px;
@@ -222,7 +215,6 @@
             z-index: 10;
             accent-color: var(--accent);
         }
-        /* Thanh công cụ chọn hàng loạt */
         .batch-toolbar {
             display: none;
             align-items: center;
@@ -233,7 +225,6 @@
             margin-bottom: 15px;
             border: 1px solid var(--border);
         }
-        /* Danh sách tài liệu dạng hàng */
         .resource-list {
             display: flex;
             flex-direction: column;
@@ -328,7 +319,6 @@
             background: #ef4444;
             color: #fff;
         }
-        /* Nút đăng nhập/đăng xuất trên thanh Navbar */
         .nav-auth-btn {
             background: var(--card-bg);
             color: var(--text-main);
@@ -367,7 +357,6 @@
             background: #ef4444;
             color: #fff;
         }
-        /* Logo lớp trên thanh Header */
         .logo div {
             display: flex;
             align-items: center;
@@ -388,7 +377,6 @@
         .header-class-logo:hover {
             transform: scale(1.08);
         }
-        /* Footer Style */
         .site-footer {
             display: flex;
             justify-content: space-between;
@@ -438,7 +426,6 @@
         .footer-right-logos img:hover {
             transform: scale(1.08);
         }
-        /* Lightbox */
         #lightbox-modal {
             display: none;
             position: fixed;
@@ -469,7 +456,7 @@
         <ul class="menu">
             <li><a href="index.html">Trang Chủ</a></li>
             <li><a href="members.html">Thành Viên Lớp</a></li>
-            <li><a href="achievements.html">Bảng Vàng Thành Tích</a></li>
+            <li><a href="achievements.html">Thành Tích</a></li>
             <li><a href="gallery.html" class="active">Tư Liệu & Kỷ Niệm</a></li>
             <li><a href="about.html">Giới Thiệu</a></li>
             <li><a href="feedback.html">Góp Ý</a></li>
@@ -521,7 +508,7 @@
                     </button>
                 </div>
                 <div id="empty-notice-gallery" style="padding: 25px; text-align: center; background: rgba(128,128,128,0.05); border-radius: 12px; border: 1px dashed var(--border); margin-top: 15px; color: var(--text-muted);">
-                    [Chưa có ảnh kỷ niệm nào được đăng...]
+                    [Chưa có ảnh nào được đăng...]
                 </div>
                 <div id="image-grid" class="gallery-grid"></div>
             </div>
@@ -529,7 +516,7 @@
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px;">
                     <div>
                         <h3 style="color: var(--accent); margin: 0;">📚 Tài Liệu Học Tập</h3>
-                        <p style="color: var(--text-muted); margin: 4px 0 0 0; font-size: 0.9rem;">Tài liệu và học tập của lớp.</p>
+                        <p style="color: var(--text-muted); margin: 4px 0 0 0; font-size: 0.9rem;">Tài liệu của lớp.</p>
                     </div>
                     <div style="display: flex; gap: 8px; align-items: center;">
                         <button id="resource-select-mode-btn" onclick="toggleSelectMode('resources')" style="display: none; background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 8px 14px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
@@ -549,7 +536,7 @@
                     </button>
                 </div>
                 <div id="empty-notice-resources" style="padding: 25px; text-align: center; background: rgba(128,128,128,0.05); border-radius: 12px; border: 1px dashed var(--border); margin-top: 15px; color: var(--text-muted);">
-                    [Kho tài liệu học tập đang cập nhật...]
+                    [Tài liệu học tập đang cập nhật...]
                 </div>
                 <div id="resource-list-container" class="resource-list"></div>
             </div>

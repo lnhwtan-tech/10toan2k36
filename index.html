@@ -6,7 +6,6 @@
     <title>10 Toán 2 K36 - Trang Chủ</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Cấu trúc Sticky Footer cho toàn trang */
         html, body {
             height: 100%;
             margin: 0;
@@ -14,9 +13,8 @@
             flex-direction: column;
         }
         .main-content {
-            flex: 1; /* Giúp phần nội dung co giãn lấp đầy khoảng trống, đẩy footer xuống đáy */
+            flex: 1; 
         }
-        /* Tinh chỉnh riêng cho nút Đăng nhập / Đăng xuất trên thanh header */
         .auth-nav-btn {
             background: var(--card-bg);
             color: var(--text-main);
@@ -46,7 +44,6 @@
             background: #ef4444;
             color: #fff;
         }
-        /* CSS chung cho các Hộp thoại Modal tùy chỉnh */
         .custom-modal-overlay {
             display: none;
             position: fixed;
@@ -73,7 +70,6 @@
             from { transform: scale(0.9); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
-        /* Lightbox phóng to ảnh */
         #lightbox-modal {
             display: none;
             position: fixed;
@@ -91,7 +87,6 @@
             border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        /* Header Logo (Logo lớp hình tròn) */
         .header-logo-img {
             height: 38px;
             width: 38px;
@@ -112,7 +107,6 @@
             align-items: center;
             gap: 10px;
         }
-        /* Footer Style: Chữ căn trái, Logo trường hình chữ nhật, Logo lớp hình tròn */
         .site-footer {
             display: flex;
             justify-content: space-between;
@@ -137,7 +131,6 @@
             align-items: center;
             gap: 16px;
         }
-        /* Logo trường Chuyên Bến Tre (hình chữ nhật) */
         .footer-right-logos img.school-logo {
             height: 55px;
             width: auto;
@@ -149,7 +142,6 @@
             cursor: zoom-in;
             transition: transform 0.2s ease;
         }
-        /* Logo lớp 10 Toán 2 K36 (hình tròn) */
         .footer-right-logos img.class-logo {
             height: 55px;
             width: 55px;
@@ -175,7 +167,7 @@
         <ul class="menu">
             <li><a href="index.html" class="active">Trang Chủ</a></li>
             <li><a href="members.html">Thành Viên Lớp</a></li>
-            <li><a href="achievements.html">Bảng Vàng Thành Tích</a></li>
+            <li><a href="achievements.html">Thành Tích</a></li>
             <li><a href="gallery.html">Tư liệu & Kỷ Niệm</a></li>
             <li><a href="about.html">Giới Thiệu</a></li>
             <li><a href="feedback.html">Góp Ý</a></li>

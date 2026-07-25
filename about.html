@@ -6,7 +6,6 @@
     <title>Giới Thiệu - 10 Toán 2 K36</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Cấu trúc Sticky Footer cho toàn trang */
         html, body {
             height: 100%;
             margin: 0;
@@ -16,7 +15,6 @@
         .main-content {
             flex: 1;
         }
-        /* Tinh chỉnh nút Đăng nhập / Đăng xuất trên header */
         .auth-nav-btn {
             background: var(--card-bg);
             color: var(--text-main);
@@ -46,7 +44,6 @@
             background: #ef4444;
             color: #fff;
         }
-        /* Bố cục nội dung phần giới thiệu */
         .intro-container {
             display: flex;
             gap: 24px;
@@ -88,7 +85,6 @@
         .intro-info a:hover {
             text-decoration: underline;
         }
-        /* KHUNG CARD ĐỘC LẬP CHO YOUTUBE IFRAME */
         .video-frame-wrapper {
             position: relative;
             width: 100%;
@@ -99,7 +95,7 @@
             border: 2px solid var(--border);
             background: #0b0f19;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-            aspect-ratio: 16 / 9; /* Giữ tỷ lệ khung hình chuẩn YouTube */
+            aspect-ratio: 16 / 9; 
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .video-frame-wrapper:hover {
@@ -113,7 +109,6 @@
             height: 100%;
             border: none;
         }
-        /* Hộp thoại Modal tùy chỉnh */
         .custom-modal-overlay {
             display: none;
             position: fixed;
@@ -140,7 +135,6 @@
             from { transform: scale(0.9); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
-        /* Lightbox phóng to ảnh */
         #lightbox-modal {
             display: none;
             position: fixed;
@@ -158,7 +152,6 @@
             border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        /* Logo lớp trên header */
         .header-logo-img {
             height: 38px;
             width: 38px;
@@ -179,7 +172,6 @@
             align-items: center;
             gap: 10px;
         }
-        /* Footer Style */
         .site-footer {
             display: flex;
             justify-content: space-between;
@@ -243,7 +235,7 @@
         <ul class="menu">
             <li><a href="index.html">Trang Chủ</a></li>
             <li><a href="members.html">Thành Viên Lớp</a></li>
-            <li><a href="achievements.html">Bảng Vàng Thành Tích</a></li>
+            <li><a href="achievements.html">Thành Tích</a></li>
             <li><a href="gallery.html">Tư liệu & Kỷ Niệm</a></li>
             <li><a href="about.html" class="active">Giới Thiệu</a></li>
             <li><a href="feedback.html">Góp Ý</a></li>

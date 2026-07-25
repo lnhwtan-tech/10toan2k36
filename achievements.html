@@ -4,10 +4,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuyên Toán K36 - Bảng Vàng</title>
+    <title>Chuyên Toán K36 - Thành Tích</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Cấu trúc Sticky Footer cho toàn trang */
         html, body {
             height: 100%;
             margin: 0;
@@ -15,9 +14,8 @@
             flex-direction: column;
         }
         .main-content {
-            flex: 1; /* Giúp phần nội dung co giãn lấp đầy khoảng trống, đẩy footer xuống đáy */
+            flex: 1; 
         }
-        /* Tùy chỉnh Header Nav */
         .header-nav {
             display: flex;
             justify-content: space-between;
@@ -29,13 +27,11 @@
             top: 0;
             z-index: 1000;
         }
-        /* Góc trái: Logo lớp & Tên tiêu đề */
         .header-left-title {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        /* Style cho logo lớp ở header */
         .header-left-title img.header-class-logo {
             height: 38px;
             width: 38px;
@@ -300,7 +296,6 @@
             border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        /* Footer Style: Chữ căn trái, Logo trường và lớp có hiệu ứng click phóng to */
         .site-footer {
             display: flex;
             justify-content: space-between;
@@ -325,7 +320,6 @@
             align-items: center;
             gap: 16px;
         }
-        /* Logo trường Chuyên Bến Tre (hình chữ nhật) */
         .footer-right-logos img.school-logo {
             height: 55px;
             width: auto;
@@ -337,7 +331,6 @@
             cursor: zoom-in;
             transition: transform 0.2s ease;
         }
-        /* Logo lớp 10 Toán 2 K36 (hình tròn) */
         .footer-right-logos img.class-logo {
             height: 55px;
             width: 55px;
@@ -363,7 +356,7 @@
         <ul class="menu" style="display: flex; align-items: center; list-style: none; gap: 20px; margin: 0; padding: 0;">
             <li><a href="index.html">Trang Chủ</a></li>
             <li><a href="members.html">Thành Viên Lớp</a></li>
-            <li><a href="achievements.html" class="active">Bảng Vàng Thành Tích</a></li>
+            <li><a href="achievements.html" class="active">Thành Tích</a></li>
             <li><a href="gallery.html">Tư Liệu & Kỷ Niệm</a></li>
             <li><a href="about.html">Giới Thiệu</a></li>
             <li><a href="feedback.html">Góp Ý</a></li>
@@ -376,8 +369,8 @@
         <section class="card">
             <div class="card-header-box">
                 <div>
-                    <h2>🏆 Bảng Vàng Thành Tích</h2>
-                    <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Nơi lưu danh các giải thưởng Học sinh giỏi cấp tỉnh, quốc gia và các kỳ thi Olympic Toán học.</p>
+                    <h2>🏆 Thành Tích</h2>
+                    <p style="margin: 0; color: var(--text-muted); font-size: 0.9rem;">Nơi lưu danh các giải thưởng, thành tích Toán học.</p>
                 </div>
                 <div style="display: flex; gap: 8px; align-items: center;">
                     <button id="select-mode-btn" onclick="toggleSelectMode()" style="display: none; background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 8px 14px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
@@ -397,7 +390,7 @@
                 </button>
             </div>
             <div id="empty-notice" style="padding: 30px; text-align: center; background: rgba(128,128,128,0.05); border-radius: 12px; border: 1px dashed var(--border); margin-top: 15px; color: var(--text-muted);">
-                [Chưa có thành tích nào được ghi nhận...]
+                [Hiện vẫn chưa có thành tích nào...]
             </div>
             <div id="achievement-grid" class="achievement-grid"></div>
         </section>
