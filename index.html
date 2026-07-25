@@ -440,5 +440,50 @@
         if (document.body.classList.contains('fx-disabled')) return;
     }, true);
 </script>
+<div id="music-widget" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; background: var(--card-bg, #ffffff); padding: 8px 14px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px; border: 1px solid var(--border, #eaeaea);">
+    <audio id="bg-music" loop preload="none">
+        <source src="music/music.mp3" type="audio/mpeg">
+    </audio>
+    <button id="music-toggle-btn" onclick="toggleMusic()" style="background: #ef4444; border: none; color: white; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: 0.2s;">
+        🎵
+    </button>
+    <div style="display: flex; flex-direction: column;">
+        <span style="font-size: 12px; font-weight: 600; color: var(--text-color, #333);">Chill Lớp Mình</span>
+        <span id="music-status" style="font-size: 10px; color: #666;">Đang phát...</span>
+    </div>
+</div>
+<script>
+    const audio = document.getElementById('bg-music');
+    const btn = document.getElementById('music-toggle-btn');
+    const statusText = document.getElementById('music-status');
+    audio.volume = 0.3;
+    const musicState = localStorage.getItem('isMusicPlaying');
+    if (musicState === null || musicState === 'true') {
+        audio.play().then(() => {
+            btn.style.background = '#ef4444';
+            statusText.textContent = 'Đang phát...';
+            localStorage.setItem('isMusicPlaying', 'true');
+        }).catch(() => {
+            btn.style.background = '#4f46e5';
+            statusText.textContent = 'Bấm để phát';
+        });
+    } else {
+        btn.style.background = '#4f46e5';
+        statusText.textContent = 'Đang tắt';
+    }
+    function toggleMusic() {
+        if (audio.paused) {
+            audio.play();
+            btn.style.background = '#ef4444'; 
+            statusText.textContent = 'Đang phát...';
+            localStorage.setItem('isMusicPlaying', 'true');
+        } else {
+            audio.pause();
+            btn.style.background = '#4f46e5'; 
+            statusText.textContent = 'Đang tắt';
+            localStorage.setItem('isMusicPlaying', 'false');
+        }
+    }
+</script>
 </body>
 </html>
