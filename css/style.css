@@ -348,3 +348,41 @@ body.light-mode .math-quote {
         text-align: center;
     }
 }
+/* --- HIỆU ỨNG KÝ HIỆU TOÁN HỌC RƠI TỪ TRÊN XUỐNG (RÕ NÉT HƠN) --- */
+.math-bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.math-symbol {
+    position: absolute;
+    color: var(--text-main); /* Đổi sang màu chữ chính của web thay vì màu mờ */
+    font-family: serif;
+    font-style: italic;
+    opacity: 0.22; /* Tăng độ đậm lên để nhìn rõ hơn mà không bị chói mắt */
+    user-select: none;
+    animation: fallSymbol 12s infinite linear;
+}
+
+@keyframes fallSymbol {
+    0% {
+        transform: translateY(-10vh) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.25; /* Rõ nét hơn ở phần giữa */
+    }
+    85% {
+        opacity: 0.25;
+    }
+    100% {
+        transform: translateY(105vh) rotate(360deg) scale(1.2);
+        opacity: 0;
+    }
+}

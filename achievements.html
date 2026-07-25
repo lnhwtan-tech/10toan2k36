@@ -1002,5 +1002,31 @@
             }, 3000);
         }
     </script>
+    <script>
+    // Tự động tạo các ký hiệu toán học rơi từ trên xuống dưới
+    window.addEventListener('DOMContentLoaded', () => {
+        const symbols = ['π', '∫', '∑', 'Δ', '√', 'α', 'β', 'θ', '∞', 'f(x)', 'lim', 'φ'];
+        const container = document.createElement('div');
+        container.className = 'math-bg-animation';
+        document.body.appendChild(container);
+
+        // Số lượng ký hiệu hiển thị cùng lúc trên màn hình
+        const symbolCount = 18; 
+
+        for (let i = 0; i < symbolCount; i++) {
+            const span = document.createElement('span');
+            span.className = 'math-symbol';
+            span.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+            
+            // Random vị trí ngang, kích thước và tốc độ rơi
+            span.style.left = Math.random() * 100 + 'vw';
+            span.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+            span.style.animationDuration = (Math.random() * 10 + 10) + 's'; // Tốc độ rơi từ 10 đến 20 giây cho mượt
+            span.style.animationDelay = (Math.random() * 10) + 's';
+            
+            container.appendChild(span);
+        }
+    });
+</script>
 </body>
 </html>
