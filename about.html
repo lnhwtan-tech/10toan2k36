@@ -260,6 +260,7 @@
             <li><a href="feedback.html">Góp Ý</a></li>
             <li><button id="theme-toggle" class="theme-btn">🌙 Giao diện</button></li>
             <li><button id="auth-nav-btn" class="auth-nav-btn" onclick="handleAuthNavAction()">🔑 Đăng nhập</button></li>
+            <li><button id="fx-toggle-btn" class="fx-menu-btn" onclick="toggleMathEffects()">✨ Hiệu ứng: Bật</button></li>
         </ul>
     </header>
 
@@ -563,6 +564,46 @@
             }, 800);
         }
     });
+</script>
+<script>
+    // Quản lý trạng thái Bật/Tắt hiệu ứng trên menu
+    function toggleMathEffects() {
+        const isCurrentlyDisabled = document.body.classList.contains('fx-disabled');
+        const fxBtn = document.getElementById('fx-toggle-btn');
+
+        if (isCurrentlyDisabled) {
+            // Đang tắt -> Bật lại
+            document.body.classList.remove('fx-disabled');
+            if (fxBtn) fxBtn.innerHTML = '✨ Hiệu ứng: Bật';
+            localStorage.setItem('math_fx_enabled', 'true');
+        } else {
+            // Đang bật -> Tắt đi
+            document.body.classList.add('fx-disabled');
+            if (fxBtn) fxBtn.innerHTML = '✨ Hiệu ứng: Tắt';
+            localStorage.setItem('math_fx_enabled', 'false');
+        }
+    }
+
+    // Khôi phục trạng thái đã lưu khi tải trang
+    window.addEventListener('DOMContentLoaded', () => {
+        const fxEnabled = localStorage.getItem('math_fx_enabled') !== 'false';
+        const fxBtn = document.getElementById('fx-toggle-btn');
+
+        if (!fxEnabled) {
+            document.body.classList.add('fx-disabled');
+            if (fxBtn) fxBtn.innerHTML = '✨ Hiệu ứng: Tắt';
+        } else {
+            document.body.classList.remove('fx-disabled');
+            if (fxBtn) fxBtn.innerHTML = '✨ Hiệu ứng: Bật';
+        }
+    });
+
+    // Cập nhật lại phần hiệu ứng click chuột để tự động ngưng khi tắt
+    const originalWindowClick = window.onclick;
+    window.addEventListener('click', (e) => {
+        if (document.body.classList.contains('fx-disabled')) return;
+        // Hiệu ứng tóe ký hiệu toán học khi click sẽ chạy ở đây
+    }, true);
 </script>
 </body>
 </html>

@@ -491,3 +491,45 @@ body.cursor-hover .math-ray-ring {
         opacity: 0;
     }
 }
+/* --- NÚT BẬT/TẮT HIỆU ỨNG TRÊN MENU --- */
+.fx-menu-btn {
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 99px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.fx-menu-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+}
+
+/* TRẠNG THÁI KHI TẮT HIỆU ỨNG */
+body.fx-disabled {
+    cursor: auto !important;
+}
+
+body.fx-disabled input, 
+body.fx-disabled textarea, 
+body.fx-disabled select,
+body.fx-disabled a,
+body.fx-disabled button {
+    cursor: pointer !important;
+}
+
+/* Ẩn toàn bộ hiệu ứng nền và con trỏ khi tắt */
+body.fx-disabled .math-bg-animation,
+body.fx-disabled .math-ray-dot,
+body.fx-disabled .math-ray-ring,
+body.fx-disabled .math-ray-pulse {
+    display: none !important;
+}
