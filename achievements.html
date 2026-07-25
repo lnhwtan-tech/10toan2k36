@@ -1028,5 +1028,90 @@
         }
     });
 </script>
+<script>
+    // Khởi tạo hiệu ứng con trỏ chùm tia tọa độ
+    window.addEventListener('DOMContentLoaded', () => {
+        const dot = document.createElement('div');
+        dot.className = 'math-ray-dot';
+        
+        const ring = document.createElement('div');
+        ring.className = 'math-ray-ring';
+        
+        const pulse = document.createElement('div');
+        pulse.className = 'math-ray-pulse';
+
+        document.body.appendChild(dot);
+        document.body.appendChild(ring);
+        document.body.appendChild(pulse);
+
+        let mouseX = 0, mouseY = 0;
+        let currentX = 0, currentY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        // Hàm render chuyển động bám đuổi mượt mà
+        function renderRayCursor() {
+            currentX += (mouseX - currentX) * 0.25;
+            currentY += (mouseY - currentY) * 0.25;
+
+            dot.style.left = currentX + 'px';
+            dot.style.top = currentY + 'px';
+
+            ring.style.left = currentX + 'px';
+            ring.style.top = currentY + 'px';
+
+            pulse.style.left = currentX + 'px';
+            pulse.style.top = currentY + 'px';
+
+            requestAnimationFrame(renderRayCursor);
+        }
+        renderRayCursor();
+
+        // Xử lý hiệu ứng khi tương tác với nút/link
+        const interactiveElements = document.querySelectorAll('a, button, input, .intro-logo, .video-frame-wrapper, select');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+        });
+    });
+</script>
+<script>
+    // Hiệu ứng click chuột tóe ký hiệu toán học
+    window.addEventListener('click', (e) => {
+        const mathChars = ['+', '-', '×', '÷', '=', 'π', '∫', '∑', 'Δ', '√', '0', '1'];
+        const particleCount = 6; // Số lượng ký hiệu bay ra mỗi lần click
+
+        for (let i = 0; i < particleCount; i++) {
+            const span = document.createElement('span');
+            span.className = 'math-click-particle';
+            span.textContent = mathChars[Math.floor(Math.random() * mathChars.length)];
+            
+            // Đặt vị trí xuất hiện tại tọa độ click chuột
+            span.style.left = e.clientX + 'px';
+            span.style.top = e.clientY + 'px';
+
+            // Tính toán hướng bay ngẫu nhiên theo hình tròn
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * 80 + 40; // Khoảng cách bay xa
+            const tx = Math.cos(angle) * distance;
+            const ty = Math.sin(angle) * distance;
+            const tr = (Math.random() - 0.5) * 360; // Góc xoay ngẫu nhiên
+
+            span.style.setProperty('--tx', tx + 'px');
+            span.style.setProperty('--ty', ty + 'px');
+            span.style.setProperty('--tr', tr + 'deg');
+
+            document.body.appendChild(span);
+
+            // Tự động xóa phần tử sau khi chạy xong animation để tránh nặng web
+            setTimeout(() => {
+                span.remove();
+            }, 800);
+        }
+    });
+</script>
 </body>
 </html>

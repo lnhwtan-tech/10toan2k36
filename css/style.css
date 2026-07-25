@@ -386,3 +386,108 @@ body.light-mode .math-quote {
         opacity: 0;
     }
 }
+/* --- HIỆU ỨNG CON TRỎ CHUỘT: TIA GÓC & QUỸ TÍCH LƯỢNG GIÁC --- */
+body {
+    cursor: none;
+}
+
+input, textarea, select {
+    cursor: text;
+}
+
+/* Điểm tâm con trỏ */
+.math-ray-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 99999;
+    box-shadow: 0 0 10px var(--accent);
+}
+
+/* Vòng cung quỹ tích bao quanh */
+.math-ray-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 99997;
+    opacity: 0.5;
+    animation: rotateRing 3s linear infinite;
+}
+
+@keyframes rotateRing {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Vòng phản chiếu lớn bên ngoài */
+.math-ray-pulse {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 80px;
+    border: 1px dashed var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 99996;
+    opacity: 0.25;
+    animation: pulseRing 6s linear infinite reverse;
+}
+
+@keyframes pulseRing {
+    0% { transform: translate(-50%, -50%) scale(0.9) rotate(0deg); }
+    50% { transform: translate(-50%, -50%) scale(1.15) rotate(180deg); }
+    100% { transform: translate(-50%, -50%) scale(0.9) rotate(360deg); }
+}
+
+/* Hiệu ứng khi rê vào nút bấm / link */
+body.cursor-hover .math-ray-dot {
+    background-color: #ff5722;
+    box-shadow: 0 0 15px #ff5722;
+    transform: translate(-50%, -50%) scale(1.5);
+}
+
+body.cursor-hover .math-ray-ring {
+    border-color: #ff5722;
+    width: 70px;
+    height: 70px;
+    opacity: 0.8;
+}
+/* --- HIỆU ỨNG CLICK BÙNG NỔ KÝ HIỆU TOÁN HỌC --- */
+.math-click-particle {
+    position: fixed;
+    font-size: 1rem;
+    font-family: serif;
+    font-style: italic;
+    color: var(--accent);
+    pointer-events: none;
+    user-select: none;
+    z-index: 100000;
+    animation: mathParticleExplode 0.8s ease-out forwards;
+}
+
+@keyframes mathParticleExplode {
+    0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0.4) rotate(var(--tr));
+        opacity: 0;
+    }
+}
