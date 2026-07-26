@@ -4,7 +4,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>10 Toán 2 K36 - Tư Liệu & Kỷ Niệm</title>
+    <title>10 Toán 2 K36 -  Góc Thành Viên</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
         html, body {
@@ -421,7 +421,7 @@
             <li><a href="index.html">Trang Chủ</a></li>
             <li><a href="members.html">Thành Viên Lớp</a></li>
             <li><a href="achievements.html">Thành Tích</a></li>
-            <li><a href="gallery.html" class="active">Tư Liệu & Kỷ Niệm</a></li>
+            <li><a href="gallery.html" class="active">Góc Thành Viên</a></li>
             <li><a href="about.html">Giới Thiệu</a></li>
             <li><a href="feedback.html">Góp Ý</a></li>
             <li><button id="theme-toggle" class="theme-btn">🌙 Giao diện</button></li>
@@ -549,7 +549,7 @@
         <div class="custom-modal-box">
             <div style="font-size: 2rem; margin-bottom: 8px;">⚠️</div>
             <h3 style="color: var(--text-main); margin: 0 0 8px 0; font-size: 1.15rem;">Xác nhận đăng xuất</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0 0 20px 0;">Bạn có chắc chắn muốn đăng xuất khỏi khu vực nội bộ không?[cite: 3]</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0 0 20px 0;">Bạn có chắc chắn muốn đăng xuất khỏi khu vực nội bộ không?</p>
             <div style="display: flex; gap: 10px;">
                 <button onclick="closeLogoutModal()" style="flex: 1; background: transparent; color: var(--text-main); border: 1px solid var(--border); padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer;">Hủy</button>
                 <button onclick="confirmLogout()" style="flex: 1; background: #ef4444; color: #fff; border: none; padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer;">Đăng xuất</button>
@@ -661,13 +661,33 @@
         });
 
         
+        function formatDateTime(isoString) {
+            if (!isoString) return 'Đang cập nhật';
+            const date = new Date(isoString);
+            if (isNaN(date.getTime())) return 'Đang cập nhật';
+
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+
+            let hours = date.getHours();
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            
+            const ampm = hours >= 12 ? 'CH' : 'SA';
+            hours = hours % 12;
+            hours = hours ? hours : 12; 
+            const strHours = String(hours).padStart(2, '0');
+
+            return `${day}/${month}/${year} ${strHours}:${minutes}:${seconds}:${ampm}`;
+        }
+        
         function handleAuthNavAction() {
             if (localStorage.getItem('class_unlocked') === 'true') {
                 document.getElementById('logout-modal').style.display = 'flex';
             } else {
                 const scrollBox = document.getElementById('index-terms-scroll');
                 scrollBox.scrollTop = 0;
-                
                 
                 const agreeBtn = document.getElementById('index-agree-btn');
                 agreeBtn.disabled = true;
@@ -678,7 +698,6 @@
             }
         }
 
-        
         function checkTermsScroll() {
             const scrollBox = document.getElementById('index-terms-scroll');
             const agreeBtn = document.getElementById('index-agree-btn');
@@ -693,7 +712,6 @@
             document.getElementById('terms-modal').style.display = 'none';
         }
 
-        
         function acceptIndexTerms() {
             const agreeBtn = document.getElementById('index-agree-btn');
             if (!agreeBtn.disabled) {
@@ -714,7 +732,6 @@
             document.getElementById('login-modal').style.display = 'none';
         }
 
-        
         function submitLogin() {
             const passVal = document.getElementById('modal-pass-input').value;
             if (passVal === CORRECT_PASS) {
@@ -971,7 +988,8 @@
                             image_url: isImage ? fileUrl : null,
                             link: fileUrl,
                             description: userDescription !== '' ? userDescription : null,
-                            visibility: visibility
+                            visibility: visibility,
+                            created_at: new Date().toISOString()
                         }
                     ]);
                 if (dbError) throw dbError;
@@ -1025,15 +1043,22 @@
                         }
                         const displayTitle = item.title || 'Ảnh kỷ niệm';
                         const displayDesc = item.description ? ` - ${item.description}` : '';
+                        const formattedDate = formatDateTime(item.created_at);
+
                         card.innerHTML = `
                             ${checkboxHtml}
                             <img src="${item.image_url}" alt="Kỷ niệm lớp" onclick="openLightbox('${item.image_url}')">
-                            <div class="gallery-info">
-                                <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 120px;" title="${escapeHtml(displayTitle + displayDesc)}">
-                                    <b>${escapeHtml(displayTitle)}</b>
-                                    ${badgeHtml}
+                            <div class="gallery-info" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+                                <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                                    <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 120px;" title="${escapeHtml(displayTitle + displayDesc)}">
+                                        <b>${escapeHtml(displayTitle)}</b>
+                                        ${badgeHtml}
+                                    </div>
+                                    ${actionButtonsHtml}
                                 </div>
-                                ${actionButtonsHtml}
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">
+                                    Ngày đăng tải: ${formattedDate}
+                                </div>
                             </div>
                         `;
                         gridEl.appendChild(card);
@@ -1088,6 +1113,8 @@
                         const fileLink = item.link || '#';
                         const displayTitle = item.title || 'Tài liệu học tập';
                         const displayDesc = item.description ? `<br><span style="font-size: 0.75rem; color: var(--text-muted);">${escapeHtml(item.description)}</span>` : '';
+                        const formattedDate = formatDateTime(item.created_at);
+
                         itemEl.innerHTML = `
                             <div class="resource-left">
                                 ${checkboxHtml}
@@ -1096,7 +1123,10 @@
                                     <span class="file-name" title="${escapeHtml(displayTitle)}">
                                         ${escapeHtml(displayTitle)} ${badgeHtml}
                                     </span>
-                                    <span class="file-meta">Tài liệu lớp học ${displayDesc}</span>
+                                    <span class="file-meta">
+                                        Tài liệu lớp học ${displayDesc}<br>
+                                        <span style="color: var(--accent);">Ngày đăng tải: ${formattedDate}</span>
+                                    </span>
                                 </div>
                             </div>
                             <div class="resource-right">
