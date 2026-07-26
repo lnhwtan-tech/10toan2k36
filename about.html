@@ -513,24 +513,7 @@
     }, true);
 </script>
 
-<div id="music-widget" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; background: var(--card-bg, #ffffff); padding: 8px 14px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px; border: 1px solid var(--border, #eaeaea);">
-    
-    
-    <div id="youtube-player-container" style="display: none;"></div>
 
-    
-    <button id="music-toggle-btn" onclick="toggleYouTubeMusic()" style="background: #ef4444; border: none; color: white; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: 0.2s;">
-        🎵
-    </button>
-    
-    <div style="display: flex; flex-direction: column;">
-        <span style="font-size: 12px; font-weight: 600; color: var(--text-color, #333);">Lofi YouTube</span>
-        <span id="music-status" style="font-size: 10px; color: #666;">Đang phát...</span>
-    </div>
-</div>
-
-
-<script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
     let player;
@@ -588,5 +571,8 @@
         }
     }
 </script>
+    
+    <iframe src="music.html" style="position: fixed; bottom: 20px; right: 20px; width: 150px; height: 50px; border: none; z-index: 9999; background: transparent;" allow="autoplay"></iframe>
+
 </body>
 </html>
