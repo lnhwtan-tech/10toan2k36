@@ -406,6 +406,36 @@
             <img src="10_t2_logo.jpeg" alt="Logo 10 Toán 2 K36" title="Bấm để phóng to logo Lớp" class="class-logo" onclick="openLightbox('10_t2_logo.jpeg')">
         </div>
     </footer>
+
+    
+    <div id="terms-modal" class="custom-modal-overlay">
+        <div class="custom-modal-box" style="max-width: 520px; text-align: left;">
+            <div style="font-size: 1.5rem; text-align: center; margin-bottom: 5px;">📜</div>
+            <h3 style="color: var(--text-main); margin: 0 0 5px 0; font-size: 1.15rem; text-align: center;">Điều khoản và Quy định sử dụng</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; margin-bottom: 12px;">Vui lòng cuộn xuống dưới cùng để mở khóa nút đồng ý.</p>
+            
+            <div id="terms-scroll-box" style="height: 200px; overflow-y: auto; border: 1px solid var(--border); padding: 12px; border-radius: 8px; background: rgba(128,128,128,0.03); font-size: 0.83rem; line-height: 1.45; color: var(--text-main); margin-bottom: 15px;">
+                <p><b>ĐIỀU KHOẢN VÀ QUY ĐỊNH ĐĂNG TẢI NỘI DUNG</b></p>
+                <p>Khi truy cập, sử dụng và đăng tải nội dung vào khu vực nội bộ của website, thành viên đồng ý tuân thủ tuyệt đối các quy định về an toàn thông tin và văn hóa ứng xử trực tuyến. Cụ thể, các hành vi sau đây <b>bị nghiêm cấm tuyệt đối</b>:</p>
+                <br>
+                <p><b>1. Đăng tải nội dung trái pháp luật và thuần phong mỹ tục:</b> Phát tán, chia sẻ hoặc lưu trữ hình ảnh, video, tài liệu có nội dung bạo lực, đồi trụy, phản động, xuyên tạc lịch sử, vi phạm pháp luật nước Cộng hòa Xã hội Chủ nghĩa Việt Nam hoặc trái với đạo đức xã hội và thuần phong mỹ tục.</p>
+                <p><b>2. Xâm phạm quyền riêng tư và danh dự cá nhân:</b> Đăng tải hình ảnh, thông tin cá nhân, bài viết hoặc bình luận mang tính chất xúc phạm, lăng mạ, bôi nhọ danh dự, nhân phẩm của các thành viên trong lớp, thầy cô giáo hoặc bất kỳ cá nhân, tổ chức nào khác.</p>
+                <p><b>3. Vi phạm bản quyền sở hữu trí tuệ:</b> Đăng tải các tài liệu học tập, sách, đề thi, phần mềm hoặc các sản phẩm sáng tạo thuộc bản quyền của tác giả, tổ chức khác mà chưa có sự cho phép hoặc trích nguồn rõ ràng.</p>
+                <p><b>4. Phá hoại hệ thống và bảo mật website:</b> Cố ý thực hiện các hành vi xâm nhập trái phép, phá hoại mã nguồn, phát tán mã độc, can thiệp vào cơ sở dữ liệu chung, hoặc lợi dụng quyền hạn sau khi đăng nhập để xóa, chỉnh sửa, làm sai lệch dữ liệu học tập và hình ảnh kỷ niệm.</p>
+                <p><b>5. Đăng tải thông tin sai lệch (Fake News):</b> Cố tình tạo ra, phát tán hoặc chia sẻ các thông tin giả mạo, sai sự thật liên quan đến hoạt động của lớp học hoặc nhà trường nhằm mục đích gây hoang mang, hiểu lầm.</p>
+                <p><b>6. Lạm dụng không gian chung:</b> Đăng tải các nội dung rác, spam quảng cáo thương mại, nội dung không liên quan đến mục đích học tập và lưu trữ kỷ niệm chung.</p>
+                <br>
+                <p><b>Hình thức xử lý:</b> Bất kỳ thành viên nào vi phạm các điều khoản trên sẽ bị thu hồi quyền truy cập khu vực nội bộ ngay lập tức, gỡ bỏ toàn bộ nội dung vi phạm, đồng thời chịu hoàn toàn trách nhiệm trước tập thể lớp và nhà trường.</p>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <button onclick="closeTermsModal()" style="flex: 1; background: transparent; color: var(--text-main); border: 1px solid var(--border); padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer;">Hủy</button>
+                <button id="agree-terms-btn" onclick="acceptTermsAndProceed()" disabled style="flex: 1; background: #ccc; color: #fff; border: none; padding: 10px; border-radius: 10px; font-weight: 600; cursor: not-allowed;">Tôi đã đọc và Đồng ý</button>
+            </div>
+        </div>
+    </div>
+
+    
     <div id="login-modal" class="custom-modal-overlay">
         <div class="custom-modal-box">
             <div style="font-size: 2rem; margin-bottom: 8px;">🔐</div>
@@ -419,6 +449,7 @@
             </div>
         </div>
     </div>
+    
     <div id="logout-modal" class="custom-modal-overlay">
         <div class="custom-modal-box">
             <div style="font-size: 2rem; margin-bottom: 8px;">⚠️</div>
@@ -496,16 +527,52 @@
             }
             loadAchievementsFromStorage();
         });
+
+        
         function handleAuthNavAction() {
             if (localStorage.getItem('class_unlocked') === 'true') {
                 document.getElementById('logout-modal').style.display = 'flex';
             } else {
-                document.getElementById('modal-pass-input').value = '';
-                document.getElementById('modal-err').style.display = 'none';
-                document.getElementById('login-modal').style.display = 'flex';
-                setTimeout(() => document.getElementById('modal-pass-input').focus(), 100);
+                const modal = document.getElementById('terms-modal');
+                const scrollBox = document.getElementById('terms-scroll-box');
+                const agreeBtn = document.getElementById('agree-terms-btn');
+                
+                modal.style.display = 'flex';
+                if (scrollBox) scrollBox.scrollTop = 0;
+                if (agreeBtn) {
+                    agreeBtn.disabled = true;
+                    agreeBtn.style.background = '#ccc';
+                    agreeBtn.style.cursor = 'not-allowed';
+                }
             }
         }
+
+        
+        const termsScrollBox = document.getElementById('terms-scroll-box');
+        const agreeTermsBtn = document.getElementById('agree-terms-btn');
+        if (termsScrollBox) {
+            termsScrollBox.addEventListener('scroll', () => {
+                const isAtBottom = termsScrollBox.scrollHeight - termsScrollBox.scrollTop <= termsScrollBox.clientHeight + 15;
+                if (isAtBottom && agreeTermsBtn) {
+                    agreeTermsBtn.disabled = false;
+                    agreeTermsBtn.style.background = 'var(--accent)';
+                    agreeTermsBtn.style.cursor = 'pointer';
+                }
+            });
+        }
+
+        function closeTermsModal() {
+            document.getElementById('terms-modal').style.display = 'none';
+        }
+
+        function acceptTermsAndProceed() {
+            closeTermsModal();
+            document.getElementById('modal-pass-input').value = '';
+            document.getElementById('modal-err').style.display = 'none';
+            document.getElementById('login-modal').style.display = 'flex';
+            setTimeout(() => document.getElementById('modal-pass-input').focus(), 100);
+        }
+
         function closeLoginModal() {
             document.getElementById('login-modal').style.display = 'none';
         }
@@ -1002,9 +1069,6 @@
         if (document.body.classList.contains('fx-disabled')) return;
     }, true);
 </script>
-
-
-
 <script>
     let player;
     const btn = document.getElementById('music-toggle-btn');
@@ -1029,40 +1093,35 @@
 
     function onPlayerReady(event) {
         player.setVolume(30);
-
-        
         const musicState = localStorage.getItem('isYoutubeMusicPlaying');
         if (musicState === null || musicState === 'true') {
             player.playVideo();
-            btn.style.background = '#ef4444';
-            statusText.textContent = 'Đang phát...';
+            if (btn) btn.style.background = '#ef4444';
+            if (statusText) statusText.textContent = 'Đang phát...';
             localStorage.setItem('isYoutubeMusicPlaying', 'true');
         } else {
             player.pauseVideo();
-            btn.style.background = '#4f46e5';
-            statusText.textContent = 'Đang tắt';
+            if (btn) btn.style.background = '#4f46e5';
+            if (statusText) statusText.textContent = 'Đang tắt';
         }
     }
 
     function toggleYouTubeMusic() {
         if (!player) return;
-        
         const state = player.getPlayerState();
         if (state === YT.PlayerState.PLAYING) {
             player.pauseVideo();
-            btn.style.background = '#4f46e5';
-            statusText.textContent = 'Đang tắt';
+            if (btn) btn.style.background = '#4f46e5';
+            if (statusText) statusText.textContent = 'Đang tắt';
             localStorage.setItem('isYoutubeMusicPlaying', 'false'); 
         } else {
             player.playVideo();
-            btn.style.background = '#ef4444';
-            statusText.textContent = 'Đang phát...';
+            if (btn) btn.style.background = '#ef4444';
+            if (statusText) statusText.textContent = 'Đang phát...';
             localStorage.setItem('isYoutubeMusicPlaying', 'true'); 
         }
     }
 </script>
-    
     <iframe src="music.html" style="position: fixed; bottom: 20px; right: 20px; width: 150px; height: 50px; border: none; z-index: 9999; background: transparent;" allow="autoplay"></iframe>
-
 </body>
 </html>

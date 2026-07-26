@@ -147,7 +147,7 @@
             border: 1px solid var(--border, #ddd);
             padding: 24px;
             border-radius: 16px;
-            max-width: 380px;
+            max-width: 420px;
             width: 100%;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             text-align: center;
@@ -315,6 +315,36 @@
             <img src="10_t2_logo.jpeg" alt="Logo 10 Toán 2 K36" title="Bấm để phóng to logo Lớp" class="class-logo" onclick="openLightbox('10_t2_logo.jpeg')">
         </div>
     </footer>
+
+    
+    <div id="terms-modal" class="custom-modal-overlay">
+        <div class="custom-modal-box" style="max-width: 520px; text-align: left;">
+            <div style="font-size: 1.5rem; text-align: center; margin-bottom: 5px;">📜</div>
+            <h3 style="color: var(--text-main); margin: 0 0 5px 0; font-size: 1.15rem; text-align: center;">Điều khoản và Quy định sử dụng</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; margin-bottom: 12px;">Vui lòng cuộn xuống dưới cùng để mở khóa nút đồng ý.</p>
+            
+            <div id="index-terms-scroll" style="height: 200px; overflow-y: auto; border: 1px solid var(--border); padding: 12px; border-radius: 8px; background: var(--bg-main, #f9f9f9); font-size: 0.83rem; line-height: 1.45; color: var(--text-main); margin-bottom: 15px;" onscroll="checkTermsScroll()">
+                <p><b>ĐIỀU KHOẢN VÀ QUY ĐỊNH ĐĂNG TẢI NỘI DUNG</b></p>
+                <p>Khi truy cập, sử dụng và đăng tải nội dung vào khu vực nội bộ của website 10 Toán 2 K36, thành viên đồng ý tuân thủ tuyệt đối các quy định về an toàn thông tin và văn hóa ứng xử trực tuyến. Cụ thể, các hành vi sau đây <b>bị nghiêm cấm tuyệt đối</b>:</p>
+                <br>
+                <p><b>1. Đăng tải nội dung trái pháp luật và thuần phong mỹ tục:</b> Phát tán, chia sẻ hoặc lưu trữ hình ảnh, video, tài liệu có nội dung bạo lực, đồi trụy, phản động, xuyên tạc lịch sử, vi phạm pháp luật nước Cộng hòa Xã hội Chủ nghĩa Việt Nam hoặc trái với đạo đức xã hội và thuần phong mỹ tục của người Việt Nam.</p>
+                <p><b>2. Xâm phạm quyền riêng tư và danh dự cá nhân:</b> Đăng tải hình ảnh, thông tin cá nhân, bài viết hoặc bình luận mang tính chất xúc phạm, lăng mạ, bôi nhọ danh dự, nhân phẩm của các thành viên trong lớp, thầy cô giáo hoặc bất kỳ cá nhân, tổ chức nào khác (bao gồm cả việc cố ý chia sẻ hình ảnh riêng tư khi chưa có sự đồng ý).</p>
+                <p><b>3. Vi phạm bản quyền sở hữu trí tuệ:</b> Đăng tải các tài liệu học tập, sách, đề thi, phần mềm hoặc các sản phẩm sáng tạo thuộc bản quyền của tác giả, tổ chức khác mà chưa có sự cho phép hoặc trích nguồn rõ ràng, gây ảnh hưởng tiêu cực đến bản quyền tác giả.</p>
+                <p><b>4. Phá hoại hệ thống và bảo mật website:</b> Cố ý thực hiện các hành vi xâm nhập trái phép, phá hoại mã nguồn, phát tán mã độc (virus, spyware), can thiệp vào cơ sở dữ liệu chung, hoặc lợi dụng quyền hạn sau khi đăng nhập để xóa, chỉnh sửa, làm sai lệch dữ liệu học tập và hình ảnh kỷ niệm của tập thể lớp.</p>
+                <p><b>5. Đăng tải thông tin sai lệch (Fake News):</b> Cố tình tạo ra, phát tán hoặc chia sẻ các thông tin giả mạo, sai sự thật liên quan đến hoạt động của lớp học, nhà trường hoặc cá nhân các thành viên nhằm mục đích gây hoang mang, hiểu lầm hoặc mất đoàn kết nội bộ.</p>
+                <p><b>6. Lạm dụng không gian chung:</b> Đăng tải các nội dung rác, spam quảng cáo thương mại, nội dung không liên quan đến mục đích học tập và lưu trữ kỷ niệm chung của tập thể 10 Toán 2.</p>
+                <br>
+                <p><b>Hình thức xử lý:</b> Bất kỳ thành viên nào vi phạm các điều khoản trên sẽ bị thu hồi quyền truy cập khu vực nội bộ ngay lập tức, gỡ bỏ toàn bộ nội dung vi phạm, đồng thời chịu hoàn toàn trách nhiệm trước tập thể lớp và nhà trường tùy theo mức độ vi phạm.</p>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <button onclick="closeTermsModal()" style="flex: 1; background: transparent; color: var(--text-main); border: 1px solid var(--border); padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer;">Hủy</button>
+                <button id="index-agree-btn" onclick="acceptIndexTerms()" disabled style="flex: 1; background: #ccc; color: #fff; border: none; padding: 10px; border-radius: 10px; font-weight: 600; cursor: not-allowed;">Tôi đã đọc và Đồng ý</button>
+            </div>
+        </div>
+    </div>
+
+    
     <div id="login-modal" class="custom-modal-overlay">
         <div class="custom-modal-box">
             <div style="font-size: 2rem; margin-bottom: 8px;">🔐</div>
@@ -323,25 +353,29 @@
             <input type="password" id="modal-pass-input" placeholder="Mật khẩu lớp..." onkeydown="if(event.key === 'Enter') submitLogin()" style="width: 100%; background: var(--card-bg); border: 1px solid var(--border); padding: 10px 12px; border-radius: 10px; color: var(--text-main); outline: none; font-size: 0.95rem; box-sizing: border-box; margin-bottom: 12px;">
             <div id="modal-err" style="color: #ef4444; font-size: 0.8rem; margin-bottom: 12px; display: none;">Sai mật khẩu rồi bạn ơi!</div>
             <div style="display: flex; gap: 10px;">
-                <button onclick="closeLoginModal()" style="flex: 1; background: transparent; color: var(--text-main); border: 1px solid var(--border); padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer;">Hủy</button>
+                <button onclick="backToTermsModal()" style="flex: 1; background: transparent; color: var(--text-main); border: 1px solid var(--border); padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer;">Quay lại</button>
                 <button onclick="submitLogin()" style="flex: 1; background: var(--accent); color: #fff; border: none; padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer;">Xác nhận</button>
             </div>
         </div>
     </div>
+
+    
     <div id="logout-modal" class="custom-modal-overlay">
         <div class="custom-modal-box">
             <div style="font-size: 2rem; margin-bottom: 8px;">⚠️</div>
             <h3 style="color: var(--text-main); margin: 0 0 8px 0; font-size: 1.15rem;">Xác nhận đăng xuất</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0 0 20px 0;">Bạn có chắc chắn muốn đăng xuất khỏi khu vực nội bộ không?</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0 0 20px 0;">Bạn có chắc chắn muốn đăng xuất khỏi khu vực nội bộ không?[cite: 3]</p>
             <div style="display: flex; gap: 10px;">
                 <button onclick="closeLogoutModal()" style="flex: 1; background: transparent; color: var(--text-main); border: 1px solid var(--border); padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer;">Hủy</button>
                 <button onclick="confirmLogout()" style="flex: 1; background: #ef4444; color: #fff; border: none; padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer;">Đăng xuất</button>
             </div>
         </div>
     </div>
+    
     <div id="lightbox-modal" onclick="closeLightbox()">
         <img id="lightbox-img" src="" alt="Phóng to ảnh">
     </div>
+
     <script>
         const CORRECT_PASS = "10toan2k36";
         window.addEventListener('DOMContentLoaded', () => {
@@ -351,6 +385,7 @@
                 updateAuthButtonState(false);
             }
         });
+
         function submitFormWithoutRedirect(e) {
             e.preventDefault();
             const form = document.getElementById('feedback-form');
@@ -386,19 +421,63 @@
                 submitBtn.textContent = '🚀 Gửi Góp Ý';
             });
         }
+
+        
         function handleAuthNavAction() {
             if (localStorage.getItem('class_unlocked') === 'true') {
                 document.getElementById('logout-modal').style.display = 'flex';
             } else {
+                const scrollBox = document.getElementById('index-terms-scroll');
+                scrollBox.scrollTop = 0;
+                
+                
+                const agreeBtn = document.getElementById('index-agree-btn');
+                agreeBtn.disabled = true;
+                agreeBtn.style.background = '#ccc';
+                agreeBtn.style.cursor = 'not-allowed';
+                
+                document.getElementById('terms-modal').style.display = 'flex';
+            }
+        }
+
+        
+        function checkTermsScroll() {
+            const scrollBox = document.getElementById('index-terms-scroll');
+            const agreeBtn = document.getElementById('index-agree-btn');
+            
+            if (scrollBox.scrollTop + scrollBox.clientHeight >= scrollBox.scrollHeight - 10) {
+                agreeBtn.disabled = false;
+                agreeBtn.style.background = 'var(--accent)';
+                agreeBtn.style.cursor = 'pointer';
+            }
+        }
+
+        function closeTermsModal() {
+            document.getElementById('terms-modal').style.display = 'none';
+        }
+
+        
+        function acceptIndexTerms() {
+            const agreeBtn = document.getElementById('index-agree-btn');
+            if (!agreeBtn.disabled) {
+                closeTermsModal();
                 document.getElementById('modal-pass-input').value = '';
                 document.getElementById('modal-err').style.display = 'none';
                 document.getElementById('login-modal').style.display = 'flex';
                 setTimeout(() => document.getElementById('modal-pass-input').focus(), 100);
             }
         }
+
+        function backToTermsModal() {
+            document.getElementById('login-modal').style.display = 'none';
+            document.getElementById('terms-modal').style.display = 'flex';
+        }
+
         function closeLoginModal() {
             document.getElementById('login-modal').style.display = 'none';
         }
+
+        
         function submitLogin() {
             const passVal = document.getElementById('modal-pass-input').value;
             if (passVal === CORRECT_PASS) {
@@ -410,14 +489,17 @@
                 document.getElementById('modal-err').style.display = 'block';
             }
         }
+
         function closeLogoutModal() {
             document.getElementById('logout-modal').style.display = 'none';
         }
+
         function confirmLogout() {
             localStorage.removeItem('class_unlocked');
             updateAuthButtonState(false);
             location.reload();
         }
+
         function updateAuthButtonState(isLoggedIn) {
             const btn = document.getElementById('auth-nav-btn');
             if (!btn) return;
@@ -429,13 +511,16 @@
                 btn.className = 'auth-nav-btn';
             }
         }
+
         function openLightbox(url) {
             document.getElementById('lightbox-img').src = url;
             document.getElementById('lightbox-modal').style.display = 'flex';
         }
+
         function closeLightbox() {
             document.getElementById('lightbox-modal').style.display = 'none';
         }
+
         const themeToggleBtn = document.getElementById('theme-toggle');
         const body = document.body;
         if (localStorage.getItem('theme') === 'light') {
@@ -455,6 +540,8 @@
             });
         }
     </script>
+
+    
     <script src="js/animation.js"></script>
     <script>
     window.addEventListener('DOMContentLoaded', () => {
@@ -474,8 +561,8 @@
             container.appendChild(span);
         }
     });
-</script>
-<script>
+    </script>
+    <script>
     window.addEventListener('DOMContentLoaded', () => {
         const dot = document.createElement('div');
         dot.className = 'math-ray-dot';
@@ -510,9 +597,10 @@
             el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
         });
     });
-</script>
-<script>
+    </script>
+    <script>
     window.addEventListener('click', (e) => {
+        if (document.body.classList.contains('fx-disabled')) return;
         const mathChars = ['+', '-', '×', '÷', '=', 'π', '∫', '∑', 'Δ', '√', '0', '1'];
         const particleCount = 6; 
         for (let i = 0; i < particleCount; i++) {
@@ -535,8 +623,8 @@
             }, 800);
         }
     });
-</script>
-<script>
+    </script>
+    <script>
     function toggleMathEffects() {
         const isCurrentlyDisabled = document.body.classList.contains('fx-disabled');
         const fxBtn = document.getElementById('fx-toggle-btn');
@@ -561,73 +649,7 @@
             if (fxBtn) fxBtn.innerHTML = '✨ Hiệu ứng: Bật';
         }
     });
-    const originalWindowClick = window.onclick;
-    window.addEventListener('click', (e) => {
-        if (document.body.classList.contains('fx-disabled')) return;
-    }, true);
-</script>
-
-
-
-
-<script>
-    let player;
-    const btn = document.getElementById('music-toggle-btn');
-    const statusText = document.getElementById('music-status');
-    const youtubeVideoId = '9kzE8isXlQY'; 
-
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('youtube-player-container', {
-            height: '0',
-            width: '0',
-            videoId: youtubeVideoId,
-            playerVars: {
-                'autoplay': 1, 
-                'loop': 1,
-                'playlist': youtubeVideoId
-            },
-            events: {
-                'onReady': onPlayerReady
-            }
-        });
-    }
-
-    function onPlayerReady(event) {
-        player.setVolume(30);
-
-        
-        const musicState = localStorage.getItem('isYoutubeMusicPlaying');
-        if (musicState === null || musicState === 'true') {
-            player.playVideo();
-            btn.style.background = '#ef4444';
-            statusText.textContent = 'Đang phát...';
-            localStorage.setItem('isYoutubeMusicPlaying', 'true');
-        } else {
-            player.pauseVideo();
-            btn.style.background = '#4f46e5';
-            statusText.textContent = 'Đang tắt';
-        }
-    }
-
-    function toggleYouTubeMusic() {
-        if (!player) return;
-        
-        const state = player.getPlayerState();
-        if (state === YT.PlayerState.PLAYING) {
-            player.pauseVideo();
-            btn.style.background = '#4f46e5';
-            statusText.textContent = 'Đang tắt';
-            localStorage.setItem('isYoutubeMusicPlaying', 'false'); 
-        } else {
-            player.playVideo();
-            btn.style.background = '#ef4444';
-            statusText.textContent = 'Đang phát...';
-            localStorage.setItem('isYoutubeMusicPlaying', 'true'); 
-        }
-    }
-</script>
-    
+    </script>
     <iframe src="music.html" style="position: fixed; bottom: 20px; right: 20px; width: 150px; height: 50px; border: none; z-index: 9999; background: transparent;" allow="autoplay"></iframe>
-
 </body>
 </html>
