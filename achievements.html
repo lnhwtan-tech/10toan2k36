@@ -191,6 +191,7 @@
             border-top: 1px solid var(--border);
             padding-top: 10px;
             font-size: 0.8rem;
+            gap: 8px;
         }
         .action-btns {
             display: flex;
@@ -225,25 +226,6 @@
         .delete-btn:hover {
             background: #ef4444;
             color: #fff;
-        }
-        .badge-status {
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 6px;
-            font-weight: 600;
-            display: inline-block;
-            margin-left: 6px;
-            vertical-align: middle;
-        }
-        .badge-public {
-            background: rgba(16, 185, 129, 0.1);
-            color: #10b981;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-        .badge-private {
-            background: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.2);
         }
         .item-checkbox {
             position: absolute;
@@ -519,6 +501,22 @@
         const SUPABASE_URL = 'https://mwyjcrpwxpghieizswfa.supabase.co';
         const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_9Ow2Q57vi9ArOtQRPr3bfw_olVCoAfD';
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+        
+        function formatDateTime(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return dateString;
+            return date.toLocaleString('vi-VN', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem('class_unlocked') === 'true') {
                 updateAuthButtonState(true);
@@ -747,6 +745,7 @@
                         .getPublicUrl(filePath);
                     fileUrl = publicUrlData.publicUrl;
                 }
+                const currentTimeIso = new Date().toISOString();
                 if (editingId !== null) {
                     const { error: updateError } = await _supabase
                         .from('achievements')
@@ -770,7 +769,8 @@
                                 title: title,
                                 link: link,
                                 description: desc,
-                                image_url: fileUrl
+                                image_url: fileUrl,
+                                created_at: currentTimeIso
                             }
                         ]);
                     if (dbError) throw dbError;
@@ -818,6 +818,8 @@
                         </div>
                     ` : '';
                     let newsLinkHtml = item.link ? `<a href="${item.link}" target="_blank" style="display: inline-block; margin-top: 8px; margin-bottom: 8px; background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.2); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; text-decoration: none;">📰 Xem bài báo gốc</a>` : '';
+                    let formattedDate = item.created_at ? formatDateTime(item.created_at) : '';
+                    let dateHtml = formattedDate ? `<div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px;">📅 Ngày đăng tải: ${formattedDate}</div>` : '';
                     card.innerHTML = `
                         ${checkboxHtml}
                         <div class="achievement-img-wrap" onclick="openLightbox('${item.image_url}')">
@@ -830,9 +832,12 @@
                                 ${newsLinkHtml}
                                 <div style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.4; word-break: break-word;">${escapeHtml(item.description || 'Không có mô tả thêm.')}</div>
                             </div>
-                            <div class="achievement-footer">
-                                <span style="color: var(--text-muted);">Chuyên Toán K36</span>
-                                ${actionButtonsHtml}
+                            <div>
+                                ${dateHtml}
+                                <div class="achievement-footer">
+                                    <span style="color: var(--text-muted);">Chuyên Toán K36</span>
+                                    ${actionButtonsHtml}
+                                </div>
                             </div>
                         </div>
                     `;
